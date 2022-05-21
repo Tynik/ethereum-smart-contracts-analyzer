@@ -1,5 +1,10 @@
 import type { SolInterface, SolLibrary, SolContract, SolFunction, SolIssue } from './types';
 
+export const log = (...args) => {
+  // eslint-disable-next-line no-console
+  console.log(...args);
+};
+
 export const addSolIssue = ({
   issues,
   id,

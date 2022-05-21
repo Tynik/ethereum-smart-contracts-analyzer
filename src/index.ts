@@ -22,6 +22,7 @@ import {
   SECURITY_CONTRACTS,
   ACCESS_CONTRACTS,
 } from './constants';
+import { log } from './helpers';
 import { parseSolFile } from './utils';
 
 const SOL_FILES_PATH = './smart-contract-sanctuary-ethereum/contracts';
@@ -137,7 +138,7 @@ const analyzeSolFilesByPath: AnalyzeSolFilesByPath = ({
     ) {
       return;
     }
-    console.log(solFilename);
+    log(solFilename);
 
     const solFilePath = path.join(solFilesPath, solFilename);
     const solInfo = analyzeSolFileByPath(solFilePath, verbose);
@@ -179,7 +180,7 @@ const analyzeSolFilesByPath: AnalyzeSolFilesByPath = ({
     }
 
     if (verbose) {
-      console.log(
+      log(
         util.inspect(
           {
             filename: solFilename,
@@ -258,6 +259,15 @@ if (require.main === module) {
     filename: findByName ? commandArgs.pop() : null,
     verbose,
   });
+  //
+  log(aggregatedInfo);
 
-  console.log(aggregatedInfo);
+  let readmeFileData = fs.readFileSync(path.join(__dirname, '../README.template.md'), 'utf-8');
+
+  readmeFileData = readmeFileData.replace(
+    '[[ETH_AGGREGATED_INFO]]',
+    JSON.stringify(aggregatedInfo, null, 2)
+  );
+
+  fs.writeFileSync(path.join(__dirname, '../README.md'), readmeFileData, 'utf8');
 }

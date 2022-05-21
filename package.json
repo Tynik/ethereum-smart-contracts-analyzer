@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc -p tsconfig.json && tsc-alias -p tsconfig.json",
-    "start": "yarn build && node dist/index.js",
+    "start": "yarn build && node dist/index",
     "lint": "eslint ./src",
     "test": "jest --collect-coverage"
   },

@@ -10,12 +10,12 @@ import type {
 } from './types';
 
 import { Instruction } from './constants';
-import { addSolIssue } from './helpers';
+import { log, addSolIssue } from './helpers';
 
 export const initExecuteHandler: Handler = () => {
   let brackets = 0;
   let previousWord: string = null;
-  const executeHandler: ReturnType<typeof initExecuteHandler> = null;
+  // const executeHandler: ReturnType<typeof initExecuteHandler> = null;
 
   let name: string = null;
 
@@ -29,6 +29,7 @@ export const initExecuteHandler: Handler = () => {
     }
     if (word === '(') {
       brackets += 1;
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       name = previousWord;
       return true;
     }
@@ -37,7 +38,7 @@ export const initExecuteHandler: Handler = () => {
   };
 };
 
-export const pragmaProcessor: Processor<any, [string[], SolIssue[]]> = (verbose = false) => {
+export const pragmaProcessor: Processor<any, [string[], SolIssue[]]> = () => {
   let step: 'language' | 'versions' = null;
 
   return ({ rowNumber, colNumber, word }) =>
@@ -76,14 +77,9 @@ export const commentProcessor: Processor<boolean> = (verbose = false) => {
   let isMultilineComment = false;
   let previousWord = null;
 
-  const log = () => {
+  const debug = () => {
     if (verbose) {
-      console.log(
-        'IS_INLINE_COMMENT:',
-        isInlineComment,
-        'IS_MULTILINE_COMMENT:',
-        isMultilineComment
-      );
+      log('IS_INLINE_COMMENT:', isInlineComment, 'IS_MULTILINE_COMMENT:', isMultilineComment);
     }
   };
 
@@ -94,7 +90,7 @@ export const commentProcessor: Processor<boolean> = (verbose = false) => {
           isInlineComment = false;
           previousWord = null;
         }
-        log();
+        debug();
         return isInlineComment;
       }
       if (isMultilineComment) {
@@ -102,7 +98,7 @@ export const commentProcessor: Processor<boolean> = (verbose = false) => {
         if (previousWord === '*' && word === '/' && !wordsDistance) {
           isMultilineComment = false;
         }
-        log();
+        debug();
         previousWord = word;
         return isMultilineComment;
       }
@@ -113,11 +109,11 @@ export const commentProcessor: Processor<boolean> = (verbose = false) => {
           } else {
             isMultilineComment = true;
           }
-          log();
+          debug();
           return true;
         }
       }
-      log();
+      debug();
       previousWord = word;
       return false;
     };
@@ -127,9 +123,9 @@ export const stringProcessor: Processor<boolean> = (verbose = false) => {
   let strMode: string = null;
   let previousWord: string = null;
 
-  const log = ({ word }) => {
+  const debug = ({ word }) => {
     if (verbose) {
-      console.log('STR_MODE:', strMode || '-', 'WORD: ', word);
+      log('STR_MODE:', strMode || '-', 'WORD: ', word);
     }
   };
 
@@ -141,7 +137,7 @@ export const stringProcessor: Processor<boolean> = (verbose = false) => {
           (strMode === "'" && word === '"') ||
           previousWord === '\\'
         ) {
-          log({ word });
+          debug({ word });
           return true;
         }
         strMode = strMode ? null : word;
@@ -152,12 +148,12 @@ export const stringProcessor: Processor<boolean> = (verbose = false) => {
       } else {
         previousWord = word;
       }
-      log({ word });
+      debug({ word });
       return Boolean(strMode);
     };
 };
 
-export const interfaceProcessor: Processor<SolInterface, [SolInterface[]]> = (verbose = false) => {
+export const interfaceProcessor: Processor<SolInterface, [SolInterface[]]> = () => {
   let step: 'name' | 'is' | 'body' = null;
   let braces = 0;
   let interfaceEntity: SolInterface = null;
@@ -226,7 +222,7 @@ export const interfaceProcessor: Processor<SolInterface, [SolInterface[]]> = (ve
     };
 };
 
-export const libraryProcessor: Processor<SolLibrary, [SolLibrary[]]> = (verbose = false) => {
+export const libraryProcessor: Processor<SolLibrary, [SolLibrary[]]> = () => {
   let step: 'name' | 'body' = null;
   let braces = 0;
   let libraryEntity: SolLibrary = null;
@@ -271,7 +267,7 @@ export const libraryProcessor: Processor<SolLibrary, [SolLibrary[]]> = (verbose 
     };
 };
 
-export const contractProcessor: Processor<SolContract, [SolContract[]]> = (verbose = false) => {
+export const contractProcessor: Processor<SolContract, [SolContract[]]> = () => {
   let step: 'name' | 'is' | 'body' = null;
   let braces = 0;
   let abstract = false;
@@ -377,7 +373,7 @@ export const functionProcessor: Processor<
       };
 
       if (verbose) {
-        console.log(`FUNCTION_STEP: ${step}`);
+        log(`FUNCTION_STEP: ${step}`);
       }
 
       if (step === 'body') {
@@ -503,7 +499,7 @@ export const functionProcessor: Processor<
     };
 };
 
-export const eventProcessor: Processor<any, [SolEntity]> = (verbose = false) => {
+export const eventProcessor: Processor<any, [SolEntity]> = () => {
   let step: 'name' | 'args' = null;
 
   return ({ word }) =>
@@ -526,7 +522,7 @@ export const eventProcessor: Processor<any, [SolEntity]> = (verbose = false) => 
     };
 };
 
-export const enumProcessor: Processor<any, [SolEntity]> = (verbose = false) => {
+export const enumProcessor: Processor<any, [SolEntity]> = () => {
   let step: 'name' | 'list' = null;
 
   return ({ word }) =>
@@ -549,9 +545,7 @@ export const enumProcessor: Processor<any, [SolEntity]> = (verbose = false) => {
     };
 };
 
-export const errorProcessor: Processor<any, [SolEntity | undefined, SolError[]]> = (
-  verbose = false
-) => {
+export const errorProcessor: Processor<any, [SolEntity | undefined, SolError[]]> = () => {
   let step: 'name' | 'args' = null;
 
   return ({ word }) =>
@@ -573,12 +567,5 @@ export const errorProcessor: Processor<any, [SolEntity | undefined, SolError[]]>
       if (word === Instruction.ERROR) {
         step = 'name';
       }
-    };
-};
-
-export const testProcessor: Processor = (verbose = false) => {
-  return ({ word }) =>
-    () => {
-      return true;
     };
 };

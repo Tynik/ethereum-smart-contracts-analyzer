@@ -11,6 +11,7 @@ import {
   errorProcessor,
   enumProcessor,
 } from './processors';
+import { log } from './helpers';
 
 type WordsProcessor = (options: {
   rowNumber: number;
@@ -103,16 +104,16 @@ export const parseSolFile = (
   const errorHandler = errorProcessor(verbose);
   const enumHandler = enumProcessor(verbose);
 
-  const log = ({ rowNumber, colNumber, word }) => {
+  const debug = ({ rowNumber, colNumber, word }) => {
     if (verbose) {
-      console.log(`'ROW: ${rowNumber} | COL: ${colNumber} | WORD: ${JSON.stringify(word)}`);
+      log(`'ROW: ${rowNumber} | COL: ${colNumber} | WORD: ${JSON.stringify(word)}`);
     }
   };
 
   parseFile(
     sourceCode,
     ({ rowNumber, colNumber, word, wordsDistance }) => {
-      log({ rowNumber, colNumber, word });
+      debug({ rowNumber, colNumber, word });
 
       callback({
         pragmaHandler: pragmaHandler({ rowNumber, colNumber, word, wordsDistance }),

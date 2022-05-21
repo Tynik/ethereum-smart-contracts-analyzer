@@ -1,0 +1,584 @@
+import type {
+  Processor,
+  SolEntity,
+  SolInterface,
+  SolLibrary,
+  Handler,
+  SolContract,
+  SolError,
+  SolIssue,
+} from './types';
+
+import { Instruction } from './constants';
+import { addSolIssue } from './helpers';
+
+export const initExecuteHandler: Handler = () => {
+  let brackets = 0;
+  let previousWord: string = null;
+  const executeHandler: ReturnType<typeof initExecuteHandler> = null;
+
+  let name: string = null;
+
+  return ({ rowNumber, colNumber, word }) => {
+    if (word === ')') {
+      brackets -= 1;
+      if (brackets === -1) {
+        throw new Error(`Syntax Error: Closed bracket error at [${rowNumber}:${colNumber}]`);
+      }
+      return true;
+    }
+    if (word === '(') {
+      brackets += 1;
+      name = previousWord;
+      return true;
+    }
+    previousWord = word;
+    return Boolean(brackets);
+  };
+};
+
+export const pragmaProcessor: Processor<any, [string[], SolIssue[]]> = (verbose = false) => {
+  let step: 'language' | 'versions' = null;
+
+  return ({ rowNumber, colNumber, word }) =>
+    (versions, issues) => {
+      if (step === 'versions') {
+        if (word === ';') {
+          step = null;
+          return;
+        }
+        versions.push(word);
+
+        if (['^', '<', '>'].includes(word[0])) {
+          addSolIssue({
+            id: 'SWC-103',
+            version: word,
+            position: [rowNumber, colNumber],
+            issues,
+          });
+        }
+        return;
+      }
+      if (step === 'language') {
+        if (word === Instruction.SOLIDITY) {
+          step = 'versions';
+        }
+        return;
+      }
+      if (word === Instruction.PRAGMA) {
+        step = 'language';
+      }
+    };
+};
+
+export const commentProcessor: Processor<boolean> = (verbose = false) => {
+  let isInlineComment = false;
+  let isMultilineComment = false;
+  let previousWord = null;
+
+  const log = () => {
+    if (verbose) {
+      console.log(
+        'IS_INLINE_COMMENT:',
+        isInlineComment,
+        'IS_MULTILINE_COMMENT:',
+        isMultilineComment
+      );
+    }
+  };
+
+  return ({ word, wordsDistance }) =>
+    () => {
+      if (isInlineComment) {
+        if (word === '\n') {
+          isInlineComment = false;
+          previousWord = null;
+        }
+        log();
+        return isInlineComment;
+      }
+      if (isMultilineComment) {
+        // should not be spaces between */
+        if (previousWord === '*' && word === '/' && !wordsDistance) {
+          isMultilineComment = false;
+        }
+        log();
+        previousWord = word;
+        return isMultilineComment;
+      }
+      if (previousWord === '/') {
+        if ((word === '/' || word === '*') && !wordsDistance) {
+          if (word === '/') {
+            isInlineComment = true;
+          } else {
+            isMultilineComment = true;
+          }
+          log();
+          return true;
+        }
+      }
+      log();
+      previousWord = word;
+      return false;
+    };
+};
+
+export const stringProcessor: Processor<boolean> = (verbose = false) => {
+  let strMode: string = null;
+  let previousWord: string = null;
+
+  const log = ({ word }) => {
+    if (verbose) {
+      console.log('STR_MODE:', strMode || '-', 'WORD: ', word);
+    }
+  };
+
+  return ({ word }) =>
+    () => {
+      if (word === '"' || word === "'") {
+        if (
+          (strMode === '"' && word === "'") ||
+          (strMode === "'" && word === '"') ||
+          previousWord === '\\'
+        ) {
+          log({ word });
+          return true;
+        }
+        strMode = strMode ? null : word;
+        return true;
+      }
+      if (previousWord === '\\' && word === '\\') {
+        previousWord = null;
+      } else {
+        previousWord = word;
+      }
+      log({ word });
+      return Boolean(strMode);
+    };
+};
+
+export const interfaceProcessor: Processor<SolInterface, [SolInterface[]]> = (verbose = false) => {
+  let step: 'name' | 'is' | 'body' = null;
+  let braces = 0;
+  let interfaceEntity: SolInterface = null;
+  let executeHandler: ReturnType<typeof initExecuteHandler> = null;
+
+  return ({ rowNumber, colNumber, word }) =>
+    interfaces => {
+      if (step === 'body') {
+        if (word === '{') {
+          braces += 1;
+          return interfaceEntity;
+        }
+        if (word === '}') {
+          braces -= 1;
+          if (braces === -1) {
+            throw new Error(
+              `Syntax Error: Close brace index error } = ${braces} at [${rowNumber}:${colNumber}]`
+            );
+          }
+          if (!braces) {
+            step = null;
+            interfaceEntity = null;
+          }
+        }
+        return interfaceEntity;
+      }
+
+      if ((step === 'name' || step === 'is') && word === '{') {
+        braces += 1;
+        step = 'body';
+        executeHandler = null;
+        return interfaceEntity;
+      }
+
+      if (step === 'is') {
+        if (executeHandler && executeHandler({ rowNumber, colNumber, word })) {
+          return interfaceEntity;
+        }
+        if (word === ',') {
+          return interfaceEntity;
+        }
+        interfaceEntity.is = interfaceEntity.is || [];
+        interfaceEntity.is.push(word);
+        // we suppose that parent entity call be called here
+        executeHandler = initExecuteHandler();
+        executeHandler({ rowNumber, colNumber, word });
+        return interfaceEntity;
+      }
+
+      if (step === 'name') {
+        if (word === 'is') {
+          step = 'is';
+          return interfaceEntity;
+        }
+        interfaceEntity = {
+          name: word,
+        };
+        interfaces.push(interfaceEntity);
+        return interfaceEntity;
+      }
+
+      if (word === Instruction.INTERFACE) {
+        step = 'name';
+      }
+      return interfaceEntity;
+    };
+};
+
+export const libraryProcessor: Processor<SolLibrary, [SolLibrary[]]> = (verbose = false) => {
+  let step: 'name' | 'body' = null;
+  let braces = 0;
+  let libraryEntity: SolLibrary = null;
+
+  return ({ rowNumber, colNumber, word }) =>
+    libraries => {
+      if (step === 'body') {
+        if (word === '{') {
+          braces += 1;
+          return libraryEntity;
+        }
+        if (word === '}') {
+          braces -= 1;
+          if (braces === -1) {
+            throw new Error(
+              `Syntax Error: Close brace index error } = ${braces} at [${rowNumber}:${colNumber}]`
+            );
+          }
+          if (!braces) {
+            step = null;
+            libraryEntity = null;
+          }
+        }
+        return libraryEntity;
+      }
+      if (step === 'name') {
+        if (word === '{') {
+          braces += 1;
+          step = 'body';
+          return libraryEntity;
+        }
+        libraryEntity = {
+          name: word,
+        };
+        libraries.push(libraryEntity);
+        return libraryEntity;
+      }
+      if (word === Instruction.LIBRARY) {
+        step = 'name';
+      }
+      return libraryEntity;
+    };
+};
+
+export const contractProcessor: Processor<SolContract, [SolContract[]]> = (verbose = false) => {
+  let step: 'name' | 'is' | 'body' = null;
+  let braces = 0;
+  let abstract = false;
+  let contractEntity: SolContract = null;
+  let executeHandler: ReturnType<typeof initExecuteHandler> = null;
+  let previousWord: string = null;
+
+  return ({ rowNumber, colNumber, word }) =>
+    contracts => {
+      if (step === 'body') {
+        if (word === '{') {
+          braces += 1;
+          return contractEntity;
+        }
+        if (word === '}') {
+          braces -= 1;
+          if (braces === -1) {
+            throw new Error(
+              `Syntax Error: Close brace index error } = ${braces} at [${rowNumber}:${colNumber}]`
+            );
+          }
+          if (!braces) {
+            step = null;
+            contractEntity = null;
+          }
+        }
+        return contractEntity;
+      }
+
+      if ((step === 'name' || step === 'is') && word === '{') {
+        braces += 1;
+        step = 'body';
+        executeHandler = null;
+        return contractEntity;
+      }
+
+      if (step === 'is') {
+        if (executeHandler && executeHandler({ rowNumber, colNumber, word })) {
+          return contractEntity;
+        }
+        if (word === ',') {
+          return contractEntity;
+        }
+        contractEntity.is = contractEntity.is || [];
+        contractEntity.is.push(word);
+        // we suppose that parent entity call be called here
+        executeHandler = initExecuteHandler();
+        executeHandler({ rowNumber, colNumber, word });
+        return contractEntity;
+      }
+
+      if (step === 'name') {
+        if (word === 'is') {
+          step = 'is';
+          return contractEntity;
+        }
+        contractEntity = {
+          name: word,
+          ...(abstract && { abstract }),
+        };
+        contracts.push(contractEntity);
+        return contractEntity;
+      }
+
+      if (word === Instruction.CONTRACT) {
+        step = 'name';
+        abstract = previousWord === Instruction.ABSTRACT;
+      }
+      previousWord = word;
+      return contractEntity;
+    };
+};
+
+export const functionProcessor: Processor<
+  void,
+  [
+    options: {
+      issues: SolIssue[];
+      interfaceEntity: SolInterface;
+      libraryEntity: SolLibrary;
+      contractEntity: SolContract;
+    }
+  ]
+> = (verbose = false) => {
+  let step: 'name' | 'args' | 'params' | 'returns' | 'body' = null;
+  let braces = 0;
+
+  return ({ rowNumber, colNumber, word }) =>
+    ({ interfaceEntity, libraryEntity, contractEntity, issues }) => {
+      const entity = interfaceEntity || libraryEntity || contractEntity;
+      const functionEntity = entity?.functions?.[entity.functions.length - 1];
+
+      const addIssue = (id: SolIssue['id']) => {
+        addSolIssue({
+          id,
+          position: [rowNumber, colNumber],
+          issues,
+          functionEntity,
+          interfaceEntity,
+          libraryEntity,
+          contractEntity,
+        });
+      };
+
+      if (verbose) {
+        console.log(`FUNCTION_STEP: ${step}`);
+      }
+
+      if (step === 'body') {
+        if (word === '}') {
+          braces -= 1;
+          if (braces === -1) {
+            throw new Error(
+              `Syntax Error: Close brace index error } at [${rowNumber}:${colNumber}]`
+            );
+          }
+          if (!braces) {
+            step = null;
+          }
+        }
+        if (
+          word === Instruction.SELF_DESTRUCT &&
+          !functionEntity.modifiers &&
+          !functionEntity.requires
+        ) {
+          addIssue('SWC-106');
+        }
+        if (word === 'tx.origin') {
+          addIssue('SWC-115');
+        }
+        return;
+      }
+
+      if (step === 'returns') {
+        if (word === '(' || word === ')') {
+          return;
+        }
+        if (word === ';') {
+          step = null;
+          return;
+        }
+        if (word === '{') {
+          braces += 1;
+          step = 'body';
+          return;
+        }
+        return;
+      }
+
+      if (step === 'params') {
+        if (word === Instruction.RETURNS || word === '{' || word === ';') {
+          if (
+            // make sure it's not the constructor
+            functionEntity.name !== entity.name &&
+            !functionEntity.public &&
+            !functionEntity.private &&
+            !functionEntity.internal &&
+            !functionEntity.external
+          ) {
+            addIssue('SWC-100');
+          }
+        }
+        if (word === Instruction.RETURNS) {
+          step = 'returns';
+          return;
+        }
+        if (word === '{') {
+          braces += 1;
+          step = 'body';
+          return;
+        }
+        if (word === ';') {
+          step = null;
+          return;
+        }
+        if (word === Instruction.PRIVATE) {
+          functionEntity.private = true;
+        } else if (word === Instruction.INTERNAL) {
+          functionEntity.internal = true;
+        } else if (word === Instruction.EXTERNAL) {
+          functionEntity.external = true;
+        } else if (word === Instruction.PUBLIC) {
+          functionEntity.public = true;
+        } else if (word === Instruction.VIEW) {
+          functionEntity.view = true;
+        } else if (word === Instruction.VIRTUAL) {
+          functionEntity.virtual = true;
+        } else if (word === Instruction.PURE) {
+          functionEntity.pure = true;
+        } else if (word === Instruction.OVERRIDE) {
+          functionEntity.override = true;
+        } else if (word === Instruction.PAYABLE) {
+          functionEntity.payable = true;
+        } else if (word === Instruction.CONSTANT) {
+          functionEntity.constant = true;
+
+          addIssue('SWC-111');
+        } else {
+          functionEntity.modifiers = functionEntity.modifiers || [];
+          functionEntity.modifiers.push({
+            name: word,
+          });
+        }
+        return;
+      }
+
+      if (step === 'args') {
+        if (word === '(') {
+          return;
+        }
+        if (word === ')') {
+          step = 'params';
+          return;
+        }
+        return;
+      }
+
+      if (step === 'name') {
+        entity.functions = entity.functions || [];
+        entity.functions.push({
+          name: word === '(' ? undefined : word,
+        });
+        step = 'args';
+        return;
+      }
+      if (word === Instruction.FUNCTION) {
+        step = 'name';
+      }
+    };
+};
+
+export const eventProcessor: Processor<any, [SolEntity]> = (verbose = false) => {
+  let step: 'name' | 'args' = null;
+
+  return ({ word }) =>
+    entity => {
+      if (word === ';') {
+        step = null;
+        return;
+      }
+      if (step === 'name') {
+        entity.events = entity.events || [];
+        entity.events.push({
+          name: word,
+        });
+        step = 'args';
+        return;
+      }
+      if (word === Instruction.EVENT) {
+        step = 'name';
+      }
+    };
+};
+
+export const enumProcessor: Processor<any, [SolEntity]> = (verbose = false) => {
+  let step: 'name' | 'list' = null;
+
+  return ({ word }) =>
+    entity => {
+      if (word === '}') {
+        step = null;
+        return;
+      }
+      if (step === 'name') {
+        entity.enums = entity.enums || [];
+        entity.enums.push({
+          name: word,
+        });
+        step = 'list';
+        return;
+      }
+      if (word === Instruction.ENUM) {
+        step = 'name';
+      }
+    };
+};
+
+export const errorProcessor: Processor<any, [SolEntity | undefined, SolError[]]> = (
+  verbose = false
+) => {
+  let step: 'name' | 'args' = null;
+
+  return ({ word }) =>
+    (entity, errors) => {
+      if (word === ';') {
+        step = null;
+        return;
+      }
+      if (step === 'name') {
+        if (entity) {
+          entity.errors = entity.errors || [];
+        }
+        (entity?.errors ?? errors).push({
+          name: word,
+        });
+        step = 'args';
+        return;
+      }
+      if (word === Instruction.ERROR) {
+        step = 'name';
+      }
+    };
+};
+
+export const testProcessor: Processor = (verbose = false) => {
+  return ({ word }) =>
+    () => {
+      return true;
+    };
+};

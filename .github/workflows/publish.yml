@@ -1,0 +1,35 @@
+name: Publish
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  publish-info:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: true
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          registry-url: https://registry.npmjs.org/
+
+      - name: Install packages
+        run: yarn
+
+#      - name: Linting
+#        run: yarn lint
+
+      - name: Test
+        run: yarn test
+
+#      - name: Build and Start
+#        run: yarn start
+#
+#      - name: Update README.md
+#        run: |
+#          git commit README.md -m 'Re-build README.Rmd' || echo "No changes to commit"
+#          git push origin || echo "No changes to commit"

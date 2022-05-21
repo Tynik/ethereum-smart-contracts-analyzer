@@ -1,9 +1,5 @@
 name: Publish
 on:
-  push:
-    branches:
-      - main
-
   schedule:
     - cron: '0 3 * * *'
 
@@ -34,6 +30,8 @@ jobs:
 
       - name: Updating README.md
         run: |
+          git config user.email "m.aliynik@gmail.com"
+          git config user.name "Tynik"
           git add README.md
           git commit README.md -m "Updated README.md automatically with aggregated info of smart contracts" || echo "No changes to commit"
           git push origin || echo "No changes to commit"

@@ -17,6 +17,12 @@ jobs:
         with:
           submodules: true
 
+      - name: Pull the latest changes
+        run: |
+          git submodule update --remote
+          git commit smart-contract-sanctuary-ethereum -m "Updating smart-contract-sanctuary-ethereum to latest"
+          git push origin
+
       - uses: actions/setup-node@v3
         with:
           node-version: 16

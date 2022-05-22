@@ -134,3 +134,5 @@ export const parseSolFile = (
     RESERVED_CHARS
   );
 };
+
+export const updateReadme = () => {};

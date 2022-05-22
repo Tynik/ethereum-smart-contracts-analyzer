@@ -138,7 +138,7 @@ const analyzeSolFilesByPath: AnalyzeSolFilesByPath = ({
     ) {
       return;
     }
-    log(solFilename);
+    // log(solFilename);
 
     const solFilePath = path.join(solFilesPath, solFilename);
     const solInfo = analyzeSolFileByPath(solFilePath, verbose);
@@ -261,6 +261,7 @@ if (require.main === module) {
   });
   //
   log(aggregatedInfo);
+  // fs.writeFileSync(path.join(__dirname, 'stats.json'), JSON.stringify(aggregatedInfo), 'utf8');
 
   let readmeFileData = fs.readFileSync(path.join(__dirname, '../README.template.md'), 'utf-8');
 

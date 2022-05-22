@@ -19,7 +19,7 @@ jobs:
 
       - name: Pull the latest changes
         run: |
-          git submodule update --remote
+          git submodule update
           git commit smart-contract-sanctuary-ethereum -m "Updating smart-contract-sanctuary-ethereum to latest"
           git push origin
 

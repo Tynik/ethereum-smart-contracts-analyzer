@@ -253,13 +253,14 @@ if (require.main === module) {
     delete commandArgs[commandIndex];
   });
 
-  const aggregatedInfo = analyzeSolFiles({
-    network: 'mainnet',
-    address: findByName ? null : commandArgs.pop(),
-    filename: findByName ? commandArgs.pop() : null,
-    verbose,
-  });
-  //
+  const aggregatedInfo = {};
+  // const aggregatedInfo = analyzeSolFiles({
+  //   network: 'mainnet',
+  //   address: findByName ? null : commandArgs.pop(),
+  //   filename: findByName ? commandArgs.pop() : null,
+  //   verbose,
+  // });
+  // //
   log(aggregatedInfo);
 
   let readmeFileData = fs.readFileSync(path.join(__dirname, '../README.template.md'), 'utf-8');

@@ -33,10 +33,9 @@ jobs:
         run: yarn start
 
       - name: Updating README.md
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN_ETH_SMART_CONTRACTS_ANALYZER }}
+        permissions:
+          contents: write
         run: |
-          git remote set-url origin https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/$GITHUB_ACTOR/ethereum-smart-contracts-analyzer.git
           git config user.name "$GITHUB_ACTOR"
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
           git add README.md

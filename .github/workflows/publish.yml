@@ -17,6 +17,11 @@ jobs:
         with:
           submodules: true
 
+      - name: Setting Github config
+        run: |
+          git config user.name "$GITHUB_ACTOR"
+          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+
       - name: Pull the latest changes
         run: |
           git submodule update
@@ -42,8 +47,6 @@ jobs:
 
       - name: Updating README.md
         run: |
-          git config user.name "$GITHUB_ACTOR"
-          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
           git add README.md
           git commit README.md -m "Updated README.md automatically with aggregated info of smart contracts" || echo "No changes to commit"
           git push origin || echo "No changes to commit"

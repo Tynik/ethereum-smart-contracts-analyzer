@@ -23,8 +23,8 @@ jobs:
       - name: Installing
         run: yarn
 
-      - name: Linting
-        run: yarn lint
+#      - name: Linting
+#        run: yarn lint
 
       - name: Testing
         run: yarn test

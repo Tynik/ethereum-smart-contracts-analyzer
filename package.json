@@ -34,9 +34,6 @@
     "preset": "ts-jest",
     "testMatch": [
       "**/src/**/__tests__/**/*.spec.ts"
-    ],
-    "setupFiles": [
-      "./jest.setup.ts"
     ]
   }
 }

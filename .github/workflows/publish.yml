@@ -24,9 +24,9 @@ jobs:
 
       - name: Pull the latest changes
         run: |
-          git submodule update
-          git commit smart-contract-sanctuary-ethereum -m "Updating smart-contract-sanctuary-ethereum to latest"
-          git push origin
+          git pull origin master --recurse-submodules
+          git commit smart-contract-sanctuary-ethereum -m "Updating smart-contract-sanctuary-ethereum to latest" || echo "No changes to commit"
+          git push origin || echo "No changes to commit"
 
       - uses: actions/setup-node@v3
         with:

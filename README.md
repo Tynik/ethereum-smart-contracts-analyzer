@@ -18,24 +18,24 @@ That information is automatically updated every day at 3 pm or when commit is pu
 
 ```json
 {
-  "number": 187381,
+  "number": 187832,
   "versions": {},
   "tokenContracts": {
     "ERC20": {
-      "number": 31676,
-      "percent": "16.90 %"
+      "number": 31732,
+      "percent": "16.89 %"
     },
     "ERC721": {
-      "number": 17922,
+      "number": 17967,
       "percent": "9.57 %"
     },
     "ERC1155": {
-      "number": 2011,
+      "number": 2025,
       "percent": "1.08 %"
     },
     "ERC721A": {
-      "number": 5115,
-      "percent": "2.73 %"
+      "number": 5254,
+      "percent": "2.80 %"
     },
     "ERC777": {
       "number": 85,
@@ -44,11 +44,11 @@ That information is automatically updated every day at 3 pm or when commit is pu
   },
   "securityContracts": {
     "ReentrancyGuard": {
-      "number": 12721,
-      "percent": "6.79 %"
+      "number": 12826,
+      "percent": "6.83 %"
     },
     "Pausable": {
-      "number": 9376,
+      "number": 9393,
       "percent": "5.00 %"
     },
     "PullPayment": {
@@ -58,11 +58,11 @@ That information is automatically updated every day at 3 pm or when commit is pu
   },
   "accessContracts": {
     "Ownable": {
-      "number": 78329,
-      "percent": "41.80 %"
+      "number": 78629,
+      "percent": "41.86 %"
     },
     "AccessControl": {
-      "number": 4764,
+      "number": 4778,
       "percent": "2.54 %"
     }
   }

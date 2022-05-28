@@ -1,9 +1,20 @@
 import fetch from 'node-fetch';
 
+import type { ETHNetwork } from './types';
+
+const ETHERSCAN_API_URLS: Partial<Record<ETHNetwork, string>> = {
+  mainnet: 'https://api.etherscan.io/api/',
+  goerli: 'https://api-goerli.etherscan.io/',
+  kovan: 'https://api-kovan.etherscan.io/',
+  rinkeby: 'https://api-rinkeby.etherscan.io/',
+  ropsten: 'https://api-ropsten.etherscan.io/',
+};
+
 export const getEthBalance = async (
+  network: ETHNetwork,
   addresses: string[]
 ): Promise<{
-  status: string;
+  status: '1' | string;
   message: 'OK' | 'NOTOK';
   result: { account: string; balance: string }[];
 }> => {
@@ -14,7 +25,7 @@ export const getEthBalance = async (
     apikey: process.env.ETHERSCAN_API_KEY,
     address: addresses.join(','),
   };
-  const url = `https://api.etherscan.io/api?${new URLSearchParams(params)}`;
+  const url = `${ETHERSCAN_API_URLS[network]}?${new URLSearchParams(params)}`;
 
   const response = await fetch(url, {
     headers: {

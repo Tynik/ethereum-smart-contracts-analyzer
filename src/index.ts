@@ -117,6 +117,7 @@ const analyzeSolFileByPath = (solFilePath: string, verbose = false) => {
 };
 
 type AnalyzeSolFilesByPath = (options: {
+  network: ETHNetwork;
   solFilesPath: string;
   aggregatedInfo: AggregatedInfo;
   address?: string;
@@ -125,6 +126,7 @@ type AnalyzeSolFilesByPath = (options: {
 }) => Promise<void>;
 
 const analyzeSolFilesByPath: AnalyzeSolFilesByPath = async ({
+  network,
   solFilesPath,
   aggregatedInfo,
   address = null,
@@ -157,8 +159,10 @@ const analyzeSolFilesByPath: AnalyzeSolFilesByPath = async ({
 
         let balance = '';
         try {
-          const ethBalanceResponse = await getEthBalance([contractAddress]);
-          balance = ethBalanceResponse.result[0].balance;
+          const ethBalanceResponse = await getEthBalance(network, [contractAddress]);
+          if (ethBalanceResponse.status === '1') {
+            balance = ethBalanceResponse.result[0].balance;
+          }
         } catch (e) {
           console.error(e);
         }
@@ -250,7 +254,7 @@ const analyzeSolFiles: AnalyzeSolFiles = async ({
     const solFilesDirname = address.slice(2, 4).toLowerCase();
     const solFilesPath = path.join(networkPath, solFilesDirname);
 
-    await analyzeSolFilesByPath({ solFilesPath, aggregatedInfo, address, verbose });
+    await analyzeSolFilesByPath({ network, solFilesPath, aggregatedInfo, address, verbose });
     return aggregatedInfo;
   }
 
@@ -260,11 +264,9 @@ const analyzeSolFiles: AnalyzeSolFiles = async ({
   for await (const solFilesDirname of solFilesDirNames) {
     const solFilesPath = path.join(networkPath, solFilesDirname);
 
-    if (!fs.lstatSync(solFilesPath).isDirectory()) {
-      // eslint-disable-next-line consistent-return
-      return;
+    if (fs.lstatSync(solFilesPath).isDirectory()) {
+      await analyzeSolFilesByPath({ network, solFilesPath, aggregatedInfo, filename, verbose });
     }
-    await analyzeSolFilesByPath({ solFilesPath, aggregatedInfo, filename, verbose });
   }
 
   return aggregatedInfo;
@@ -293,7 +295,7 @@ if (require.main === module) {
     filename: findByName ? cmdArgs.pop() : null,
     verbose,
   }).then(aggregatedInfoMainnet => {
-    log(aggregatedInfoMainnet);
+    log('RESULT:', aggregatedInfoMainnet);
 
     updateReadme({ aggregatedInfoMainnet });
   });

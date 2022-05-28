@@ -71,54 +71,54 @@ That information is automatically updated every day at 3 PM or when commit is pu
   },
   "mostVulnerable": [
     {
-      "name": "_MultipleWinnersBuilder",
-      "address": "0x094e0c66bEc52a737e580fbba50ECb66a4CF74B2",
-      "countIssues": 241
+      "name": "ControlledToken",
+      "address": "0x046db64124cf7132a508580c35c13c472469febd",
+      "countIssues": 284
     },
     {
-      "name": "_LiquidationModelV1",
-      "address": "0x0638BD341d6BBB8E1fBFD529558C051D7e97d151",
-      "countIssues": 76
+      "name": "NFT20Pair",
+      "address": "0x01d80f525eda270abdd352cda66bd743ab913469",
+      "countIssues": 109
     },
     {
-      "name": "_WeightedPool",
-      "address": "0x062F38735AAC32320DB5e2DBBEb07968351D7C72",
-      "countIssues": 37
+      "name": "MainnetCreateLoanWithNFTFacet",
+      "address": "0x00F5c620bD442E8ADBce6Fbd0d68C7Ecc181701B",
+      "countIssues": 100
     },
     {
-      "name": "_ExpiringMultiPartyCreator",
-      "address": "0x062138265bC254cd93362Ca956237469b9Da0d5C",
-      "countIssues": 104
-    },
-    {
-      "name": "_StableReserve",
-      "address": "0x05F4B6B112E2f2978c92A0cCdA49F270837F713a",
-      "countIssues": 98
-    },
-    {
-      "name": "_SablierManager",
-      "address": "0x0589C7a2b2acB895fF0314A394A6D991a9204444",
-      "countIssues": 82
-    },
-    {
-      "name": "_MintedTokenCappedCrowdsaleExt",
-      "address": "0x04935c19114d529E24070ED41f7bF4D4d822D1ed",
+      "name": "MintedTokenCappedCrowdsaleExt",
+      "address": "0x00A4B757cB0B7cff002fCF075D896a77daC533D4",
       "countIssues": 52
     },
     {
-      "name": "_Inbox",
-      "address": "0x048cc108763de75e080ad717bd284003aa49ea15",
-      "countIssues": 59
+      "name": "RollupAdminFacet",
+      "address": "0x00792e3740FA46E9123F10025873d5FA3e0369D7",
+      "countIssues": 47
     },
     {
-      "name": "_ZilleriumPresaleToken",
-      "address": "0x046e6bea4d53727ccedc2c252ea61d042ff7aba6",
-      "countIssues": 31
+      "name": "DataCompressor",
+      "address": "0x0050b1abd1dd2d9b01ce954e663ff3dbca9193b1",
+      "countIssues": 40
     },
     {
-      "name": "_ControlledToken",
-      "address": "0x046db64124cf7132a508580c35c13c472469febd",
-      "countIssues": 284
+      "name": "Fork",
+      "address": "0x0047E488C0fD25Ef1326F24e356E30B84518b175",
+      "countIssues": 32
+    },
+    {
+      "name": "Registrar",
+      "address": "0x002B720B1F7689b05182A6e09902868DC962759C",
+      "countIssues": 27
+    },
+    {
+      "name": "BondingShare",
+      "address": "0x0013B6033dd999676Dc547CEeCEA29f781D8Db17",
+      "countIssues": 26
+    },
+    {
+      "name": "TypeCVaultFactory",
+      "address": "0x00065b639A3Fcc65db399a8CeF8c33327CcfE158",
+      "countIssues": 23
     }
   ]
 }

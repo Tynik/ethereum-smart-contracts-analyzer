@@ -43,6 +43,8 @@ jobs:
         run: yarn test
 
       - name: Building and Starting
+        env:
+          ETHERSCAN_API_KEY: ${{ secrets.ETHERSCAN_API_KEY }}
         run: yarn start
 
       - name: Updating README.md

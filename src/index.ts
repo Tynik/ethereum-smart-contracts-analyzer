@@ -24,6 +24,7 @@ import {
 } from './constants';
 import { log } from './helpers';
 import { parseSolFile, updateReadme } from './utils';
+import { getEthBalance } from './etherscanAPI';
 
 const SOL_FILES_PATH = './smart-contract-sanctuary-ethereum/contracts';
 
@@ -121,16 +122,19 @@ type AnalyzeSolFilesByPath = (options: {
   address?: string;
   filename?: string;
   verbose?: boolean;
-}) => void;
+}) => Promise<void>;
 
-const analyzeSolFilesByPath: AnalyzeSolFilesByPath = ({
+const analyzeSolFilesByPath: AnalyzeSolFilesByPath = async ({
   solFilesPath,
   aggregatedInfo,
   address = null,
   filename = null,
   verbose = false,
 }) => {
-  fs.readdirSync(solFilesPath, 'utf-8').forEach(solFilename => {
+  const solFiles = fs.readdirSync(solFilesPath, 'utf-8');
+
+  // eslint-disable-next-line no-restricted-syntax
+  for await (const solFilename of solFiles) {
     if (
       (address && solFilename.indexOf(address.slice(2)) === -1) ||
       (filename && solFilename.toLowerCase().indexOf(filename.toLowerCase()) === -1) ||
@@ -149,10 +153,15 @@ const analyzeSolFilesByPath: AnalyzeSolFilesByPath = ({
         !aggregatedInfo.mostVulnerable.length ||
         solInfo.issues.length > aggregatedInfo.mostVulnerable[0].countIssues
       ) {
+        const contractAddress = `0x${solFilename.slice(0, 40)}`;
+
+        const ethBalanceResponse = await getEthBalance([contractAddress]);
+
         aggregatedInfo.mostVulnerable.unshift({
+          address: contractAddress,
           name: solFilename.slice(41, -4),
-          address: `0x${solFilename.slice(0, 40)}`,
           countIssues: solInfo.issues.length,
+          balance: ethBalanceResponse.result[0].balance,
         });
         if (aggregatedInfo.mostVulnerable.length > 10) {
           aggregatedInfo.mostVulnerable.pop();
@@ -204,7 +213,7 @@ const analyzeSolFilesByPath: AnalyzeSolFilesByPath = ({
         )
       );
     }
-  });
+  }
 };
 
 type AnalyzeSolFiles = (options: {
@@ -212,9 +221,9 @@ type AnalyzeSolFiles = (options: {
   address?: string;
   filename?: string;
   verbose?: boolean;
-}) => AggregatedInfo;
+}) => Promise<AggregatedInfo>;
 
-const analyzeSolFiles: AnalyzeSolFiles = ({
+const analyzeSolFiles: AnalyzeSolFiles = async ({
   network = 'mainnet',
   address = null,
   filename = null,
@@ -235,18 +244,22 @@ const analyzeSolFiles: AnalyzeSolFiles = ({
     const solFilesDirname = address.slice(2, 4).toLowerCase();
     const solFilesPath = path.join(networkPath, solFilesDirname);
 
-    analyzeSolFilesByPath({ solFilesPath, aggregatedInfo, address, verbose });
+    await analyzeSolFilesByPath({ solFilesPath, aggregatedInfo, address, verbose });
     return aggregatedInfo;
   }
 
-  fs.readdirSync(networkPath, 'utf-8').forEach(solFilesDirname => {
+  const solFilesDirNames = fs.readdirSync(networkPath, 'utf-8');
+
+  // eslint-disable-next-line no-restricted-syntax
+  for await (const solFilesDirname of solFilesDirNames) {
     const solFilesPath = path.join(networkPath, solFilesDirname);
 
     if (!fs.lstatSync(solFilesPath).isDirectory()) {
+      // eslint-disable-next-line consistent-return
       return;
     }
-    analyzeSolFilesByPath({ solFilesPath, aggregatedInfo, filename, verbose });
-  });
+    await analyzeSolFilesByPath({ solFilesPath, aggregatedInfo, filename, verbose });
+  }
 
   return aggregatedInfo;
 };
@@ -268,13 +281,14 @@ if (require.main === module) {
     delete cmdArgs[cmdIndex];
   });
 
-  const aggregatedInfoMainnet = analyzeSolFiles({
+  analyzeSolFiles({
     network: 'mainnet',
     address: findByName ? null : cmdArgs.pop(),
     filename: findByName ? cmdArgs.pop() : null,
     verbose,
-  });
-  log(aggregatedInfoMainnet);
+  }).then(aggregatedInfoMainnet => {
+    log(aggregatedInfoMainnet);
 
-  updateReadme({ aggregatedInfoMainnet });
+    updateReadme({ aggregatedInfoMainnet });
+  });
 }

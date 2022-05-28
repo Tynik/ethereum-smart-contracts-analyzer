@@ -35,5 +35,8 @@
     "testMatch": [
       "**/src/**/__tests__/**/*.spec.ts"
     ]
+  },
+  "dependencies": {
+    "node-fetch": "^2.6.7"
   }
 }

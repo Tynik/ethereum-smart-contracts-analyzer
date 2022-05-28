@@ -5,7 +5,7 @@ on:
       - main
 
   schedule:
-    - cron: '0 3 * * *'
+    - cron: '0 15 * * *'
 
 jobs:
   publish-info:
@@ -17,7 +17,7 @@ jobs:
         with:
           submodules: true
 
-      - name: Setting Github config
+      - name: Setting git config
         run: |
           git config user.name "$GITHUB_ACTOR"
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"

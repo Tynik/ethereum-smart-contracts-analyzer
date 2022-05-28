@@ -3,7 +3,7 @@ import util from 'util';
 import path from 'path';
 
 import type {
-  Network,
+  ETHNetwork,
   SolInterface,
   SolLibrary,
   SolContract,
@@ -23,7 +23,7 @@ import {
   ACCESS_CONTRACTS,
 } from './constants';
 import { log } from './helpers';
-import { parseSolFile } from './utils';
+import { parseSolFile, updateReadme } from './utils';
 
 const SOL_FILES_PATH = './smart-contract-sanctuary-ethereum/contracts';
 
@@ -145,6 +145,21 @@ const analyzeSolFilesByPath: AnalyzeSolFilesByPath = ({
     if (solInfo) {
       aggregatedInfo.number += 1;
 
+      if (
+        !aggregatedInfo.mostVulnerable.length ||
+        solInfo.issues.length >
+          aggregatedInfo.mostVulnerable[aggregatedInfo.mostVulnerable.length - 1].countIssues
+      ) {
+        aggregatedInfo.mostVulnerable.unshift({
+          name: solFilename.slice(40, -4),
+          address: `0x${solFilename.slice(0, 40)}`,
+          countIssues: solInfo.issues.length,
+        });
+        if (aggregatedInfo.mostVulnerable.length > 10) {
+          aggregatedInfo.mostVulnerable.pop();
+        }
+      }
+
       const iss = [...new Set(solInfo.contracts.map(contract => contract.is || []).flat())];
       iss.forEach(is => {
         if (TOKEN_STANDARDS.includes(is as TokenStandard)) {
@@ -193,14 +208,14 @@ const analyzeSolFilesByPath: AnalyzeSolFilesByPath = ({
   });
 };
 
-type AnalyzeSolFile = (options: {
-  network?: Network;
+type AnalyzeSolFiles = (options: {
+  network?: ETHNetwork;
   address?: string;
   filename?: string;
   verbose?: boolean;
 }) => AggregatedInfo;
 
-const analyzeSolFiles: AnalyzeSolFile = ({
+const analyzeSolFiles: AnalyzeSolFiles = ({
   network = 'mainnet',
   address = null,
   filename = null,
@@ -212,6 +227,7 @@ const analyzeSolFiles: AnalyzeSolFile = ({
     tokenContracts: {},
     securityContracts: {},
     accessContracts: {},
+    mostVulnerable: [],
   };
 
   const networkPath = path.join(SOL_FILES_PATH, network);
@@ -237,38 +253,29 @@ const analyzeSolFiles: AnalyzeSolFile = ({
 };
 
 if (require.main === module) {
-  const commandArgs = process.argv.slice(2);
+  const cmdArgs = process.argv.slice(2);
 
   let findByName = false;
   let verbose = false;
 
-  commandArgs.forEach((commandArg, commandIndex) => {
-    if (commandArg === '--name') {
+  cmdArgs.forEach((cmdArg, cmdIndex) => {
+    if (cmdArg === '--name') {
       findByName = true;
-    } else if (commandArg === '--verbose') {
+    } else if (cmdArg === '--verbose') {
       verbose = true;
     } else {
       return;
     }
-    delete commandArgs[commandIndex];
+    delete cmdArgs[cmdIndex];
   });
 
-  const aggregatedInfo = analyzeSolFiles({
+  const aggregatedInfoMainnet = analyzeSolFiles({
     network: 'mainnet',
-    address: findByName ? null : commandArgs.pop(),
-    filename: findByName ? commandArgs.pop() : null,
+    address: findByName ? null : cmdArgs.pop(),
+    filename: findByName ? cmdArgs.pop() : null,
     verbose,
   });
-  //
-  log(aggregatedInfo);
-  // fs.writeFileSync(path.join(__dirname, 'stats.json'), JSON.stringify(aggregatedInfo), 'utf8');
+  log(aggregatedInfoMainnet);
 
-  let readmeFileData = fs.readFileSync(path.join(__dirname, '../README.template.md'), 'utf-8');
-
-  readmeFileData = readmeFileData.replace(
-    '[[ETH_AGGREGATED_INFO]]',
-    JSON.stringify(aggregatedInfo, null, 2)
-  );
-
-  fs.writeFileSync(path.join(__dirname, '../README.md'), readmeFileData, 'utf8');
+  updateReadme({ aggregatedInfoMainnet });
 }

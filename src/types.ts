@@ -1,6 +1,6 @@
 import { TokenStandard, SecurityContract, AccessContract } from './constants';
 
-export type Network = 'mainnet';
+export type ETHNetwork = 'mainnet' | 'ropsten' | 'rinkeby' | 'goerli' | 'kovan';
 
 export type ContractsInfo<T extends string> = Partial<
   Record<
@@ -12,12 +12,19 @@ export type ContractsInfo<T extends string> = Partial<
   >
 >;
 
+export type MostVulnerable = {
+  name: string;
+  address: string;
+  countIssues: number;
+};
+
 export type AggregatedInfo = {
   number: number;
   versions: Record<string, number>;
   tokenContracts: ContractsInfo<TokenStandard>;
   securityContracts: ContractsInfo<SecurityContract>;
   accessContracts: ContractsInfo<AccessContract>;
+  mostVulnerable: MostVulnerable[];
 };
 
 type SolFunctionModifier = {

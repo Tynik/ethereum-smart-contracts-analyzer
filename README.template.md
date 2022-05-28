@@ -6,16 +6,19 @@ As the source of smart contracts is used **[smart-contract-sanctuary-ethereum](h
 
 ## 💡 Ethereum smart contracts aggregated info from mainnet
 
-That information is automatically updated every day at 3 pm or when commit is pushed.
+That information is automatically updated every day at 3 PM or when commit is pushed.
 
 **Details:**
 
-1. `number` - The total number of verified contracts from mainnet.
+1. `number` - The total number of verified contracts.
 2. `versions` - TODO
 3. `tokenContracts` - Usages of contracts to create non-/fungible tokens.
 4. `securityContracts` - Usages of contracts to cover common security practices. 
 5. `accessContracts` - Usages of contracts to control the access.
+6. `mostVulnerable` - The most vulnerable contracts.
+
+**Aggregated info from mainnet:**
 
 ```json
-[[ETH_AGGREGATED_INFO]]
+[[ETH_AGGREGATED_INFO_MAINNET]]
 ```

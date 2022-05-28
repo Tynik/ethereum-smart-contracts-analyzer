@@ -527,8 +527,14 @@ export const enumProcessor: Processor<any, [SolEntity]> = () => {
 
   return ({ word }) =>
     entity => {
-      if (word === '}') {
-        step = null;
+      if (step === 'list') {
+        if (word === '{') {
+          return;
+        }
+        if (word === '}') {
+          step = null;
+          return;
+        }
         return;
       }
       if (step === 'name') {

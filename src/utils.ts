@@ -1,3 +1,8 @@
+import fs from 'fs';
+import path from 'path';
+
+import type { AggregatedInfo } from './types';
+
 import { RESERVED_CHARS } from './constants';
 import {
   pragmaProcessor,
@@ -135,4 +140,15 @@ export const parseSolFile = (
   );
 };
 
-export const updateReadme = () => {};
+type UpdateReadme = (aggregatedInfo: { aggregatedInfoMainnet: AggregatedInfo }) => void;
+
+export const updateReadme: UpdateReadme = ({ aggregatedInfoMainnet }) => {
+  let readmeFileData = fs.readFileSync(path.join(__dirname, '../README.template.md'), 'utf-8');
+
+  readmeFileData = readmeFileData.replace(
+    '[[ETH_AGGREGATED_INFO_MAINNET]]',
+    JSON.stringify(aggregatedInfoMainnet, null, 2)
+  );
+
+  fs.writeFileSync(path.join(__dirname, '../README.md'), readmeFileData, 'utf8');
+};

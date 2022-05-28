@@ -147,11 +147,10 @@ const analyzeSolFilesByPath: AnalyzeSolFilesByPath = ({
 
       if (
         !aggregatedInfo.mostVulnerable.length ||
-        solInfo.issues.length >
-          aggregatedInfo.mostVulnerable[aggregatedInfo.mostVulnerable.length - 1].countIssues
+        solInfo.issues.length > aggregatedInfo.mostVulnerable[0].countIssues
       ) {
         aggregatedInfo.mostVulnerable.unshift({
-          name: solFilename.slice(40, -4),
+          name: solFilename.slice(41, -4),
           address: `0x${solFilename.slice(0, 40)}`,
           countIssues: solInfo.issues.length,
         });

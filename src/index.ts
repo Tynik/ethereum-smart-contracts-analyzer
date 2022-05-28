@@ -155,13 +155,19 @@ const analyzeSolFilesByPath: AnalyzeSolFilesByPath = async ({
       ) {
         const contractAddress = `0x${solFilename.slice(0, 40)}`;
 
-        const ethBalanceResponse = await getEthBalance([contractAddress]);
+        let balance = '';
+        try {
+          const ethBalanceResponse = await getEthBalance([contractAddress]);
+          balance = ethBalanceResponse.result[0].balance;
+        } catch (e) {
+          console.error(e);
+        }
 
         aggregatedInfo.mostVulnerable.unshift({
           address: contractAddress,
           name: solFilename.slice(41, -4),
           countIssues: solInfo.issues.length,
-          balance: ethBalanceResponse.result[0].balance,
+          balance,
         });
         if (aggregatedInfo.mostVulnerable.length > 10) {
           aggregatedInfo.mostVulnerable.pop();

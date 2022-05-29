@@ -116,7 +116,7 @@ That information is automatically updated every day at 3 PM or when commit is pu
       "address": "0x0100546F2cD4C9D97f798fFC9755E47865FF7Ee6",
       "name": "AlEth",
       "countIssues": 20,
-      "balance": "0"
+      "balance": ""
     },
     {
       "address": "0x0000000010C38b3D8B4D642D9D065FB69BC77bC7",

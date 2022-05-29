@@ -10,21 +10,12 @@ const ETHERSCAN_API_URLS: Partial<Record<ETHNetwork, string>> = {
   ropsten: 'https://api-ropsten.etherscan.io/',
 };
 
-export const getEthBalance = async (
+export const etherscanRequest = async <R = any>(
   network: ETHNetwork,
-  addresses: string[]
-): Promise<{
-  status: '1' | string;
-  message: 'OK' | 'NOTOK';
-  result: { account: string; balance: string }[];
-}> => {
-  const params = {
-    module: 'account',
-    action: 'balancemulti',
-    tag: 'latest',
-    apikey: process.env.ETHERSCAN_API_KEY,
-    address: addresses.join(','),
-  };
+  params: Record<string, string>
+): Promise<R> => {
+  params = { ...params, apikey: process.env.ETHERSCAN_API_KEY };
+
   const url = `${ETHERSCAN_API_URLS[network]}?${new URLSearchParams(params)}`;
 
   const response = await fetch(url, {
@@ -32,6 +23,18 @@ export const getEthBalance = async (
       'Content-Type': 'application/json',
     },
   });
-
   return response.json();
+};
+
+export const getEthBalance = async (network: ETHNetwork, addresses: string[]) => {
+  return etherscanRequest<{
+    status: '1' | string;
+    message: 'OK' | 'NOTOK';
+    result: { account: string; balance: string }[];
+  }>(network, {
+    module: 'account',
+    action: 'balancemulti',
+    tag: 'latest',
+    address: addresses.join(','),
+  });
 };

@@ -533,7 +533,6 @@ export const enumProcessor: Processor<any, [SolEntity]> = () => {
         }
         if (word === '}') {
           step = null;
-          return;
         }
         return;
       }

@@ -113,7 +113,7 @@ export const getSolFileInfo = (sourceCode: string, verbose = false): SolFileInfo
 
 const analyzeSolFileByPath = (solFilePath: string, verbose = false) => {
   const solFileSourceCode = fs.readFileSync(solFilePath, 'utf-8');
-  return solFileSourceCode && getSolFileInfo(solFileSourceCode, verbose);
+  return getSolFileInfo(solFileSourceCode, verbose);
 };
 
 type AnalyzeSolFilesByPath = (options: {
@@ -133,16 +133,17 @@ const analyzeSolFilesByPath: AnalyzeSolFilesByPath = async ({
   filename = null,
   verbose = false,
 }) => {
-  const solFiles = fs.readdirSync(solFilesPath, 'utf-8');
+  const solFilenames = fs.readdirSync(solFilesPath, 'utf-8');
 
   // eslint-disable-next-line no-restricted-syntax
-  for await (const solFilename of solFiles) {
+  for await (const solFilename of solFilenames) {
     if (
       (address && solFilename.indexOf(address.slice(2)) === -1) ||
       (filename && solFilename.toLowerCase().indexOf(filename.toLowerCase()) === -1) ||
       solFilename.slice(-3) !== 'sol'
     ) {
-      return;
+      // eslint-disable-next-line no-continue
+      continue;
     }
     // log(solFilename);
 
@@ -261,8 +262,8 @@ const analyzeSolFiles: AnalyzeSolFiles = async ({
   const solFilesDirNames = fs.readdirSync(networkPath, 'utf-8');
 
   // eslint-disable-next-line no-restricted-syntax
-  for await (const solFilesDirname of solFilesDirNames) {
-    const solFilesPath = path.join(networkPath, solFilesDirname);
+  for await (const solFilesDirName of solFilesDirNames) {
+    const solFilesPath = path.join(networkPath, solFilesDirName);
 
     if (fs.lstatSync(solFilesPath).isDirectory()) {
       await analyzeSolFilesByPath({ network, solFilesPath, aggregatedInfo, filename, verbose });

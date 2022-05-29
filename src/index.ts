@@ -163,6 +163,8 @@ const analyzeSolFilesByPath: AnalyzeSolFilesByPath = async ({
           const ethBalanceResponse = await getEthBalance(network, [contractAddress]);
           if (ethBalanceResponse.status === '1') {
             balance = ethBalanceResponse.result[0].balance;
+          } else {
+            console.log(ethBalanceResponse);
           }
         } catch (e) {
           console.error(e);

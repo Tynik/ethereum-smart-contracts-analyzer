@@ -22,9 +22,9 @@ import {
   SECURITY_CONTRACTS,
   ACCESS_CONTRACTS,
 } from './constants';
-import { log } from './helpers';
+import { log, getContractAddress, getContractName } from './helpers';
 import { parseSolFile, updateReadme } from './utils';
-import { getEthBalance } from './etherscanAPI';
+import { getContractBalance, getContractNormalTransactions } from './etherscanAPI';
 
 const SOL_FILES_PATH = './smart-contract-sanctuary-ethereum/contracts';
 
@@ -156,15 +156,32 @@ const analyzeSolFilesByPath: AnalyzeSolFilesByPath = async ({
         !aggregatedInfo.mostVulnerable.length ||
         solInfo.issues.length > aggregatedInfo.mostVulnerable[0].countIssues
       ) {
-        const contractAddress = `0x${solFilename.slice(0, 40)}`;
+        const contractAddress = getContractAddress(solFilename);
 
-        let balance = '';
+        const contractNormalTransactionsResponse = await getContractNormalTransactions(
+          network,
+          contractAddress,
+          {
+            sort: 'desc',
+            perPage: 1,
+          }
+        );
+        const lastContractNormalTransaction = contractNormalTransactionsResponse.result[0];
+        if (
+          !lastContractNormalTransaction ||
+          +(Date.now() / 1000).toFixed() - +lastContractNormalTransaction.timeStamp > 86400
+        ) {
+          // eslint-disable-next-line no-continue
+          continue;
+        }
+
+        let contractBalance = '';
         try {
-          const ethBalanceResponse = await getEthBalance(network, [contractAddress]);
-          if (ethBalanceResponse.status === '1') {
-            balance = ethBalanceResponse.result[0].balance;
+          const contractBalanceResponse = await getContractBalance(network, [contractAddress]);
+          if (contractBalanceResponse.status === '1') {
+            contractBalance = contractBalanceResponse.result[0].balance;
           } else {
-            console.log(ethBalanceResponse);
+            console.log(contractBalanceResponse);
           }
         } catch (e) {
           console.error(e);
@@ -172,10 +189,14 @@ const analyzeSolFilesByPath: AnalyzeSolFilesByPath = async ({
 
         aggregatedInfo.mostVulnerable.unshift({
           address: contractAddress,
-          name: solFilename.slice(41, -4),
+          name: getContractName(solFilename),
           countIssues: solInfo.issues.length,
-          balance,
+          balance: contractBalance,
+          ...(lastContractNormalTransaction.hash && {
+            lastNormalTransaction: lastContractNormalTransaction.hash,
+          }),
         });
+
         if (aggregatedInfo.mostVulnerable.length > 10) {
           aggregatedInfo.mostVulnerable.pop();
         }
@@ -242,6 +263,8 @@ const analyzeSolFiles: AnalyzeSolFiles = async ({
   filename = null,
   verbose = false,
 }) => {
+  const startTime = Date.now();
+
   const aggregatedInfo: AggregatedInfo = {
     number: 0,
     versions: {},
@@ -249,6 +272,7 @@ const analyzeSolFiles: AnalyzeSolFiles = async ({
     securityContracts: {},
     accessContracts: {},
     mostVulnerable: [],
+    time: '- secs.',
   };
 
   const networkPath = path.join(SOL_FILES_PATH, network);
@@ -258,21 +282,20 @@ const analyzeSolFiles: AnalyzeSolFiles = async ({
     const solFilesPath = path.join(networkPath, solFilesDirname);
 
     await analyzeSolFilesByPath({ network, solFilesPath, aggregatedInfo, address, verbose });
-    return aggregatedInfo;
-  }
+  } else {
+    const solFilesDirNames = fs.readdirSync(networkPath, 'utf-8');
 
-  const solFilesDirNames = fs.readdirSync(networkPath, 'utf-8');
+    // eslint-disable-next-line no-restricted-syntax
+    for await (const solFilesDirName of solFilesDirNames) {
+      const solFilesPath = path.join(networkPath, solFilesDirName);
 
-  // eslint-disable-next-line no-restricted-syntax
-  for await (const solFilesDirName of solFilesDirNames) {
-    const solFilesPath = path.join(networkPath, solFilesDirName);
-
-    if (fs.lstatSync(solFilesPath).isDirectory()) {
-      await analyzeSolFilesByPath({ network, solFilesPath, aggregatedInfo, filename, verbose });
+      if (fs.lstatSync(solFilesPath).isDirectory()) {
+        await analyzeSolFilesByPath({ network, solFilesPath, aggregatedInfo, filename, verbose });
+      }
     }
   }
 
-  return aggregatedInfo;
+  return { ...aggregatedInfo, time: `${((Date.now() - startTime) / 1000).toFixed()} secs` };
 };
 
 if (require.main === module) {

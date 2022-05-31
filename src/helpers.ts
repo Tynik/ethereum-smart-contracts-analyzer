@@ -5,6 +5,10 @@ export const log = (...args) => {
   console.log(...args);
 };
 
+export const getContractAddress = (solFilename: string) => `0x${solFilename.slice(0, 40)}`;
+
+export const getContractName = (solFilename: string) => solFilename.slice(41, -4);
+
 export const addSolIssue = ({
   issues,
   id,

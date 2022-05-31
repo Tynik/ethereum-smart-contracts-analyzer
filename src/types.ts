@@ -17,10 +17,12 @@ export type MostVulnerable = {
   address: string;
   countIssues: number;
   balance: string;
+  lastNormalTransaction?: string;
 };
 
 export type AggregatedInfo = {
   number: number;
+  time: string;
   versions: Record<string, number>;
   tokenContracts: ContractsInfo<TokenStandard>;
   securityContracts: ContractsInfo<SecurityContract>;

@@ -21,38 +21,38 @@ That information is automatically updated every day at 3 PM or when commit is pu
 
 ```json
 {
-  "number": 189099,
+  "number": 189596,
   "versions": {},
   "tokenContracts": {
-    "ERC20": {
-      "number": 31849,
-      "percent": "16.84 %"
-    },
     "ERC721": {
-      "number": 18114,
-      "percent": "9.58 %"
+      "number": 18136,
+      "percent": "9.57 %"
     },
-    "ERC1155": {
-      "number": 2035,
-      "percent": "1.08 %"
+    "ERC20": {
+      "number": 31747,
+      "percent": "16.74 %"
     },
     "ERC721A": {
-      "number": 5658,
-      "percent": "2.99 %"
+      "number": 5817,
+      "percent": "3.07 %"
+    },
+    "ERC1155": {
+      "number": 2028,
+      "percent": "1.07 %"
     },
     "ERC777": {
-      "number": 85,
-      "percent": "0.05 %"
+      "number": 84,
+      "percent": "0.04 %"
     }
   },
   "securityContracts": {
     "ReentrancyGuard": {
-      "number": 13148,
-      "percent": "6.95 %"
+      "number": 13193,
+      "percent": "6.96 %"
     },
     "Pausable": {
-      "number": 9444,
-      "percent": "4.99 %"
+      "number": 9413,
+      "percent": "4.97 %"
     },
     "PullPayment": {
       "number": 101,
@@ -61,75 +61,85 @@ That information is automatically updated every day at 3 PM or when commit is pu
   },
   "accessContracts": {
     "Ownable": {
-      "number": 79474,
-      "percent": "42.03 %"
+      "number": 79712,
+      "percent": "42.04 %"
     },
     "AccessControl": {
-      "number": 4801,
-      "percent": "2.54 %"
+      "number": 4766,
+      "percent": "2.51 %"
     }
   },
   "mostVulnerable": [
     {
-      "address": "0x046db64124cf7132a508580c35c13c472469febd",
-      "name": "ControlledToken",
-      "countIssues": 284,
-      "balance": "0"
+      "address": "0x7Cb48E0826433b2D7A2a7F0e69a716D5Ca045229",
+      "name": "Twap",
+      "countIssues": 106,
+      "balance": "0",
+      "lastNormalTransaction": "0xb9f25433786fe83173faa310289cbbbbee453091e579f3f24c3a184465c30209"
     },
     {
-      "address": "0x01d80f525eda270abdd352cda66bd743ab913469",
-      "name": "NFT20Pair",
-      "countIssues": 109,
-      "balance": "0"
+      "address": "0x446C9033E7516D820cc9a2ce2d0B7328b579406F",
+      "name": "HealthCareToken",
+      "countIssues": 97,
+      "balance": "0",
+      "lastNormalTransaction": "0x5715fcee9e891ded8d0824833445409038558281341994cb044d12b74d98d0ec"
     },
     {
-      "address": "0x00F5c620bD442E8ADBce6Fbd0d68C7Ecc181701B",
-      "name": "MainnetCreateLoanWithNFTFacet",
-      "countIssues": 100,
-      "balance": "0"
+      "address": "0x0abdace70d3790235af448c88547603b945604ea",
+      "name": "District0xNetworkToken",
+      "countIssues": 85,
+      "balance": "0",
+      "lastNormalTransaction": "0x7025c26a7f7f9737044c6eed6b4fa075110a1a8bf0468bd2fd21eddf8be412a2"
     },
     {
-      "address": "0x00A4B757cB0B7cff002fCF075D896a77daC533D4",
-      "name": "MintedTokenCappedCrowdsaleExt",
-      "countIssues": 52,
-      "balance": "0"
+      "address": "0x06c2AE330C57a6320b2de720971ebD09003C7a01",
+      "name": "UnipilotPassiveFactory",
+      "countIssues": 38,
+      "balance": "0",
+      "lastNormalTransaction": "0x24e73fbdebb408026a93394f58e309b43d7bfb8c2426543b593949dba0357cdf"
     },
     {
-      "address": "0x00792e3740FA46E9123F10025873d5FA3e0369D7",
-      "name": "RollupAdminFacet",
-      "countIssues": 47,
-      "balance": "0"
+      "address": "0x062F38735AAC32320DB5e2DBBEb07968351D7C72",
+      "name": "WeightedPool",
+      "countIssues": 37,
+      "balance": "0",
+      "lastNormalTransaction": "0xe5828d32d71791c9e1a52c68914d0648945962e3a41b77eb62afd70e2f2ca7ef"
     },
     {
-      "address": "0x0050b1abd1dd2d9b01ce954e663ff3dbca9193b1",
-      "name": "DataCompressor",
-      "countIssues": 40,
-      "balance": "0"
+      "address": "0x026224a2940bfe258d0dbe947919b62fe321f042",
+      "name": "LobstersNft",
+      "countIssues": 34,
+      "balance": "0",
+      "lastNormalTransaction": "0x1af8ef40f587a56fec2193b74d3f9fbdd09bdf86361e6aa0d786bda50c87a7ea"
     },
     {
-      "address": "0x0047E488C0fD25Ef1326F24e356E30B84518b175",
-      "name": "Fork",
-      "countIssues": 32,
-      "balance": "0"
-    },
-    {
-      "address": "0x002B720B1F7689b05182A6e09902868DC962759C",
-      "name": "Registrar",
-      "countIssues": 27,
-      "balance": "0"
-    },
-    {
-      "address": "0x0013B6033dd999676Dc547CEeCEA29f781D8Db17",
-      "name": "BondingShare",
+      "address": "0x01234567bac6fF94d7E4f0EE23119CF848F93245",
+      "name": "EthBlocks",
       "countIssues": 26,
-      "balance": "0"
+      "balance": "0",
+      "lastNormalTransaction": "0xa2ebf37e1a11b25a6ea241ab1b7998545d13ac64e6929058349a27fd6e0eced8"
     },
     {
-      "address": "0x00065b639A3Fcc65db399a8CeF8c33327CcfE158",
-      "name": "TypeCVaultFactory",
-      "countIssues": 23,
+      "address": "0x011C5C4E4A86FC95A7A6d5C49a69Cdf0CB1d0467",
+      "name": "HKC",
+      "countIssues": 25,
+      "balance": "0",
+      "lastNormalTransaction": "0x439dd77759cb8fa69b5fac0dd04df132e15d627401f828d5a556b8291e84cdc9"
+    },
+    {
+      "address": "0x00139FdD8f2Bb8b4376aab2435c44981EC34e7e0",
+      "name": "AdventurersOfEther",
+      "countIssues": 21,
+      "balance": "22800000000000000000",
+      "lastNormalTransaction": "0x7dbcd5c9e27adda4304727d0e5add3151ee107fa23128c679705472d01e3c78a"
+    },
+    {
+      "address": "0x000000be320d58EAbB01D14B6755B0403a93Ab7d",
+      "name": "YuGiOhCard",
+      "countIssues": 17,
       "balance": "0"
     }
-  ]
+  ],
+  "time": "1361 secs"
 }
 ```

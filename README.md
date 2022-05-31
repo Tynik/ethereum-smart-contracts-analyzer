@@ -21,52 +21,52 @@ That information is automatically updated every day at 3 PM or when commit is pu
 
 ```json
 {
-  "number": 81280,
+  "number": 189099,
   "versions": {},
   "tokenContracts": {
     "ERC20": {
-      "number": 13463,
-      "percent": "16.56 %"
+      "number": 31849,
+      "percent": "16.84 %"
     },
     "ERC721": {
-      "number": 8232,
-      "percent": "10.13 %"
+      "number": 18114,
+      "percent": "9.58 %"
     },
     "ERC1155": {
-      "number": 972,
-      "percent": "1.20 %"
+      "number": 2035,
+      "percent": "1.08 %"
     },
     "ERC721A": {
-      "number": 2484,
-      "percent": "3.06 %"
+      "number": 5658,
+      "percent": "2.99 %"
     },
     "ERC777": {
-      "number": 39,
+      "number": 85,
       "percent": "0.05 %"
     }
   },
   "securityContracts": {
     "ReentrancyGuard": {
-      "number": 6119,
-      "percent": "7.53 %"
+      "number": 13148,
+      "percent": "6.95 %"
     },
     "Pausable": {
-      "number": 4090,
-      "percent": "5.03 %"
+      "number": 9444,
+      "percent": "4.99 %"
     },
     "PullPayment": {
-      "number": 39,
+      "number": 101,
       "percent": "0.05 %"
     }
   },
   "accessContracts": {
     "Ownable": {
-      "number": 33782,
-      "percent": "41.56 %"
+      "number": 79474,
+      "percent": "42.03 %"
     },
     "AccessControl": {
-      "number": 2304,
-      "percent": "2.84 %"
+      "number": 4801,
+      "percent": "2.54 %"
     }
   },
   "mostVulnerable": [
@@ -77,57 +77,57 @@ That information is automatically updated every day at 3 PM or when commit is pu
       "balance": "0"
     },
     {
-      "address": "0x01503bAF774aB3aDb6AF79a6fB725c1610D45b2a",
-      "name": "CreateLoanFacet",
-      "countIssues": 83,
+      "address": "0x01d80f525eda270abdd352cda66bd743ab913469",
+      "name": "NFT20Pair",
+      "countIssues": 109,
       "balance": "0"
     },
     {
-      "address": "0x01267E6b6EC2196c6E21a64A7F3e3211F10cCcAe",
-      "name": "Flasher",
-      "countIssues": 68,
+      "address": "0x00F5c620bD442E8ADBce6Fbd0d68C7Ecc181701B",
+      "name": "MainnetCreateLoanWithNFTFacet",
+      "countIssues": 100,
       "balance": "0"
     },
     {
-      "address": "0x011e5846975c6463a8c6337EECF3cbF64e328884",
-      "name": "UnionGovernor",
-      "countIssues": 30,
+      "address": "0x00A4B757cB0B7cff002fCF075D896a77daC533D4",
+      "name": "MintedTokenCappedCrowdsaleExt",
+      "countIssues": 52,
       "balance": "0"
     },
     {
-      "address": "0x011FfeE87aD2fe4C091b0d9a7Bd70Bfc697c041c",
-      "name": "PriceCalculator",
+      "address": "0x00792e3740FA46E9123F10025873d5FA3e0369D7",
+      "name": "RollupAdminFacet",
+      "countIssues": 47,
+      "balance": "0"
+    },
+    {
+      "address": "0x0050b1abd1dd2d9b01ce954e663ff3dbca9193b1",
+      "name": "DataCompressor",
+      "countIssues": 40,
+      "balance": "0"
+    },
+    {
+      "address": "0x0047E488C0fD25Ef1326F24e356E30B84518b175",
+      "name": "Fork",
+      "countIssues": 32,
+      "balance": "0"
+    },
+    {
+      "address": "0x002B720B1F7689b05182A6e09902868DC962759C",
+      "name": "Registrar",
       "countIssues": 27,
       "balance": "0"
     },
     {
-      "address": "0x011C5C4E4A86FC95A7A6d5C49a69Cdf0CB1d0467",
-      "name": "HKC",
-      "countIssues": 25,
+      "address": "0x0013B6033dd999676Dc547CEeCEA29f781D8Db17",
+      "name": "BondingShare",
+      "countIssues": 26,
       "balance": "0"
     },
     {
-      "address": "0x0119451f94E98716c3fa17ff31d19C98d134DD6d",
-      "name": "FYToken",
-      "countIssues": 21,
-      "balance": "0"
-    },
-    {
-      "address": "0x0100546F2cD4C9D97f798fFC9755E47865FF7Ee6",
-      "name": "AlEth",
-      "countIssues": 20,
-      "balance": ""
-    },
-    {
-      "address": "0x0000000010C38b3D8B4D642D9D065FB69BC77bC7",
-      "name": "underground",
-      "countIssues": 16,
-      "balance": ""
-    },
-    {
-      "address": "0x000000000014802bC35fEF3484edAD3BDdCA9e8b",
-      "name": "VolatilityOracle",
-      "countIssues": 15,
+      "address": "0x00065b639A3Fcc65db399a8CeF8c33327CcfE158",
+      "name": "TypeCVaultFactory",
+      "countIssues": 23,
       "balance": "0"
     }
   ]

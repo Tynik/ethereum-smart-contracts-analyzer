@@ -17,7 +17,10 @@ export type MostVulnerable = {
   address: string;
   countIssues: number;
   balance: string;
-  lastNormalTransaction?: string;
+  lastNormalTransaction?: {
+    hash: string;
+    when: string;
+  };
 };
 
 export type AggregatedInfo = {

@@ -38,6 +38,7 @@
   },
   "dependencies": {
     "@types/node-fetch": "^2.6.1",
-    "node-fetch": "^2.6.7"
+    "node-fetch": "^2.6.7",
+    "web3-utils": "^1.7.3"
   }
 }

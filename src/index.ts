@@ -1,6 +1,7 @@
 import fs from 'fs';
 import util from 'util';
 import path from 'path';
+import { fromWei } from 'web3-utils';
 
 import type {
   ETHNetwork,
@@ -22,7 +23,13 @@ import {
   SECURITY_CONTRACTS,
   ACCESS_CONTRACTS,
 } from './constants';
-import { log, getContractAddress, getContractName } from './helpers';
+import {
+  log,
+  getContractAddress,
+  getContractName,
+  getNormalTxTimestampDelta,
+  getNormalTxReadableTimestampDelta,
+} from './helpers';
 import { parseSolFile, updateReadme } from './utils';
 import { getContractBalance, getContractNormalTransactions } from './etherscanAPI';
 
@@ -169,17 +176,17 @@ const analyzeSolFilesByPath: AnalyzeSolFilesByPath = async ({
         const lastContractNormalTransaction = contractNormalTransactionsResponse.result[0];
         if (
           !lastContractNormalTransaction ||
-          +(Date.now() / 1000).toFixed() - +lastContractNormalTransaction.timeStamp > 86400
+          getNormalTxTimestampDelta(lastContractNormalTransaction) > 86400
         ) {
           // eslint-disable-next-line no-continue
           continue;
         }
 
-        let contractBalance = '';
+        let contractWeiBalance = '';
         try {
           const contractBalanceResponse = await getContractBalance(network, [contractAddress]);
           if (contractBalanceResponse.status === '1') {
-            contractBalance = contractBalanceResponse.result[0].balance;
+            contractWeiBalance = contractBalanceResponse.result[0].balance;
           } else {
             console.log(contractBalanceResponse);
           }
@@ -191,9 +198,12 @@ const analyzeSolFilesByPath: AnalyzeSolFilesByPath = async ({
           address: contractAddress,
           name: getContractName(solFilename),
           countIssues: solInfo.issues.length,
-          balance: contractBalance,
-          ...(lastContractNormalTransaction.hash && {
-            lastNormalTransaction: lastContractNormalTransaction.hash,
+          balance: `${fromWei(contractWeiBalance, 'ether')} ETH`,
+          ...(lastContractNormalTransaction && {
+            lastNormalTransaction: {
+              hash: lastContractNormalTransaction.hash,
+              when: getNormalTxReadableTimestampDelta(lastContractNormalTransaction),
+            },
           }),
         });
 
@@ -267,12 +277,12 @@ const analyzeSolFiles: AnalyzeSolFiles = async ({
 
   const aggregatedInfo: AggregatedInfo = {
     number: 0,
+    time: '- secs.',
     versions: {},
     tokenContracts: {},
     securityContracts: {},
     accessContracts: {},
     mostVulnerable: [],
-    time: '- secs.',
   };
 
   const networkPath = path.join(SOL_FILES_PATH, network);
@@ -295,7 +305,7 @@ const analyzeSolFiles: AnalyzeSolFiles = async ({
     }
   }
 
-  return { ...aggregatedInfo, time: `${((Date.now() - startTime) / 1000).toFixed()} secs` };
+  return { ...aggregatedInfo, time: `${((Date.now() - startTime) / 1000).toFixed()} secs.` };
 };
 
 if (require.main === module) {

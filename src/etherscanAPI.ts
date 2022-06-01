@@ -36,7 +36,7 @@ type GetContractBalance = (
   network: ETHNetwork,
   addresses: string[]
 ) => Promise<{
-  status: '1' | string;
+  status: '0' | '1';
   message: 'OK' | 'NOTOK';
   result: { account: string; balance: string }[];
 }>;
@@ -49,6 +49,30 @@ export const getContractBalance: GetContractBalance = async (network, addresses)
     address: addresses.join(','),
   });
 
+export type NormalTransaction = {
+  hash: string;
+  nonce: string;
+  blockNumber: string;
+  blockHash: string;
+  timeStamp: string;
+  transactionIndex: string;
+  from: string;
+  to: string;
+  value: string;
+  contractAddress: string;
+  input: string;
+  type: 'create' | 'call';
+  gas: string;
+  gasPrice: string;
+  gasUsed: string;
+  cumulativeGasUsed: string;
+  confirmations: string;
+  traceId: string;
+  isError: '0' | '1';
+  txreceipt_status: '0' | '1';
+  errCode?: string;
+};
+
 type GetContractNormalTransactions = (
   network: ETHNetwork,
   address: string,
@@ -60,31 +84,9 @@ type GetContractNormalTransactions = (
     perPage?: number;
   }
 ) => Promise<{
-  status: '1' | string;
+  status: '0' | '1';
   message: 'OK' | 'NOTOK';
-  result: {
-    blockNumber: string;
-    timeStamp: string;
-    hash: string;
-    nonce: string;
-    blockHash: string;
-    transactionIndex: string;
-    from: string;
-    to: string;
-    value: string;
-    contractAddress: string;
-    input: string;
-    type: 'create' | 'call';
-    gas: string;
-    gasPrice: string;
-    gasUsed: string;
-    cumulativeGasUsed: string;
-    confirmations: string;
-    traceId: string;
-    isError: '0';
-    errCode?: string;
-    txreceipt_status: '1';
-  }[];
+  result: NormalTransaction[];
 }>;
 
 export const getContractNormalTransactions: GetContractNormalTransactions = async (

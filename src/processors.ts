@@ -595,6 +595,7 @@ export const mappingProcessor: Processor<
 
       if (word === ';') {
         step = null;
+        previousWord = null;
         return;
       }
       if (step === 'visibility_name') {

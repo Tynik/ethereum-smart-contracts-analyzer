@@ -15,6 +15,7 @@ import {
   eventProcessor,
   errorProcessor,
   enumProcessor,
+  mappingProcessor,
 } from './processors';
 import { log } from './helpers';
 
@@ -92,6 +93,7 @@ export const parseSolFile = (
     eventHandler: ReturnType<ReturnType<typeof eventProcessor>>;
     errorHandler: ReturnType<ReturnType<typeof errorProcessor>>;
     enumHandler: ReturnType<ReturnType<typeof enumProcessor>>;
+    mappingHandler: ReturnType<ReturnType<typeof mappingProcessor>>;
     rowNumber: number;
     colNumber: number;
     word: string;
@@ -108,6 +110,7 @@ export const parseSolFile = (
   const eventHandler = eventProcessor(verbose);
   const errorHandler = errorProcessor(verbose);
   const enumHandler = enumProcessor(verbose);
+  const mappingHandler = mappingProcessor(verbose);
 
   const debug = ({ rowNumber, colNumber, word }) => {
     if (verbose) {
@@ -131,6 +134,7 @@ export const parseSolFile = (
         eventHandler: eventHandler({ rowNumber, colNumber, word, wordsDistance }),
         errorHandler: errorHandler({ rowNumber, colNumber, word, wordsDistance }),
         enumHandler: enumHandler({ rowNumber, colNumber, word, wordsDistance }),
+        mappingHandler: mappingHandler({ rowNumber, colNumber, word, wordsDistance }),
         rowNumber,
         colNumber,
         word,

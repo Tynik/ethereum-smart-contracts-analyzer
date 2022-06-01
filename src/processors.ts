@@ -38,7 +38,7 @@ export const initExecuteHandler: Handler = () => {
   };
 };
 
-export const pragmaProcessor: Processor<any, [string[], SolIssue[]]> = () => {
+export const pragmaProcessor: Processor<void, [string[], SolIssue[]]> = () => {
   let step: 'language' | 'versions' = null;
 
   return ({ rowNumber, colNumber, word }) =>
@@ -499,7 +499,7 @@ export const functionProcessor: Processor<
     };
 };
 
-export const eventProcessor: Processor<any, [SolEntity]> = () => {
+export const eventProcessor: Processor<void, [SolEntity]> = () => {
   let step: 'name' | 'args' = null;
 
   return ({ word }) =>
@@ -522,7 +522,7 @@ export const eventProcessor: Processor<any, [SolEntity]> = () => {
     };
 };
 
-export const enumProcessor: Processor<any, [SolEntity]> = () => {
+export const enumProcessor: Processor<void, [SolEntity]> = () => {
   let step: 'name' | 'list' = null;
 
   return ({ word }) =>
@@ -550,7 +550,7 @@ export const enumProcessor: Processor<any, [SolEntity]> = () => {
     };
 };
 
-export const errorProcessor: Processor<any, [SolEntity | undefined, SolError[]]> = () => {
+export const errorProcessor: Processor<void, [SolEntity | undefined, SolError[]]> = () => {
   let step: 'name' | 'args' = null;
 
   return ({ word }) =>
@@ -571,6 +571,81 @@ export const errorProcessor: Processor<any, [SolEntity | undefined, SolError[]]>
       }
       if (word === Instruction.ERROR) {
         step = 'name';
+      }
+    };
+};
+
+export const mappingProcessor: Processor<
+  void,
+  [
+    {
+      libraryEntity: SolLibrary;
+      contractEntity: SolContract;
+      issues: SolIssue[];
+    }
+  ]
+> = () => {
+  let step: 'structure' | 'visibility_name' = null;
+  let brackets = 0;
+  let previousWord: string = null;
+
+  return ({ rowNumber, colNumber, word }) =>
+    ({ libraryEntity, contractEntity, issues }) => {
+      const entity = libraryEntity || contractEntity;
+
+      if (word === ';') {
+        step = null;
+        return;
+      }
+      if (step === 'visibility_name') {
+        if (
+          word === Instruction.PRIVATE ||
+          word === Instruction.INTERNAL ||
+          word === Instruction.PUBLIC
+        ) {
+          previousWord = word;
+          return;
+        }
+        entity.variables.push({
+          name: word,
+          ...(previousWord === Instruction.PRIVATE && { private: true }),
+          ...(previousWord === Instruction.INTERNAL && { internal: true }),
+          ...(previousWord === Instruction.PUBLIC && { public: true }),
+        });
+
+        const variable = entity.variables[entity.variables.length - 1];
+
+        if (!variable.public && !variable.private && !variable.internal) {
+          addSolIssue({
+            id: 'SWC-100',
+            position: [rowNumber, colNumber],
+            libraryEntity,
+            contractEntity,
+            issues,
+          });
+        }
+        return;
+      }
+      if (step === 'structure') {
+        if (word === '(') {
+          brackets += 1;
+          return;
+        }
+        if (word === ')') {
+          brackets -= 1;
+          if (brackets === -1) {
+            throw new Error(`Syntax Error: Closed bracket error at [${rowNumber}:${colNumber}]`);
+          }
+          if (!brackets) {
+            step = 'visibility_name';
+          }
+          return;
+        }
+        return;
+      }
+      if (word === Instruction.MAPPING) {
+        entity.variables = entity.variables || [];
+        step = 'structure';
       }
     };
 };

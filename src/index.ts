@@ -23,13 +23,7 @@ import {
   SECURITY_CONTRACTS,
   ACCESS_CONTRACTS,
 } from './constants';
-import {
-  log,
-  getContractAddress,
-  getContractName,
-  getNormalTxTimestampDelta,
-  getNormalTxReadableTimestampDelta,
-} from './helpers';
+import { log, getContractAddress, getContractName, getNormalTxTimestampDelta } from './helpers';
 import { parseSolFile, updateReadme } from './utils';
 import { getContractBalance, getContractNormalTransactions } from './etherscanAPI';
 
@@ -62,6 +56,7 @@ export const getSolFileInfo = (sourceCode: string, verbose = false): SolFileInfo
       eventHandler,
       enumHandler,
       errorHandler,
+      mappingHandler,
       word,
     }) => {
       try {
@@ -92,6 +87,7 @@ export const getSolFileInfo = (sourceCode: string, verbose = false): SolFileInfo
           functionHandler({ interfaceEntity, libraryEntity, contractEntity, issues });
           eventHandler(entity);
           enumHandler(entity);
+          mappingHandler({ libraryEntity, contractEntity, issues });
         }
       } catch (e) {
         throw new Error(`Message: ${e.message} at [${rowNumber}:${colNumber}]`);
@@ -159,59 +155,6 @@ const analyzeSolFilesByPath: AnalyzeSolFilesByPath = async ({
     if (solInfo) {
       aggregatedInfo.number += 1;
 
-      if (
-        !aggregatedInfo.mostVulnerable.length ||
-        solInfo.issues.length > aggregatedInfo.mostVulnerable[0].countIssues
-      ) {
-        const contractAddress = getContractAddress(solFilename);
-
-        const contractNormalTransactionsResponse = await getContractNormalTransactions(
-          network,
-          contractAddress,
-          {
-            sort: 'desc',
-            perPage: 1,
-          }
-        );
-        const lastContractNormalTransaction = contractNormalTransactionsResponse.result[0];
-        if (
-          !lastContractNormalTransaction ||
-          getNormalTxTimestampDelta(lastContractNormalTransaction) > 86400
-        ) {
-          // eslint-disable-next-line no-continue
-          continue;
-        }
-
-        let contractWeiBalance = '';
-        try {
-          const contractBalanceResponse = await getContractBalance(network, [contractAddress]);
-          if (contractBalanceResponse.status === '1') {
-            contractWeiBalance = contractBalanceResponse.result[0].balance;
-          } else {
-            console.log(contractBalanceResponse);
-          }
-        } catch (e) {
-          console.error(e);
-        }
-
-        aggregatedInfo.mostVulnerable.unshift({
-          address: contractAddress,
-          name: getContractName(solFilename),
-          countIssues: solInfo.issues.length,
-          balance: `${fromWei(contractWeiBalance, 'ether')} ETH`,
-          ...(lastContractNormalTransaction && {
-            lastNormalTransaction: {
-              hash: lastContractNormalTransaction.hash,
-              when: getNormalTxReadableTimestampDelta(lastContractNormalTransaction),
-            },
-          }),
-        });
-
-        if (aggregatedInfo.mostVulnerable.length > 10) {
-          aggregatedInfo.mostVulnerable.pop();
-        }
-      }
-
       const iss = [...new Set(solInfo.contracts.map(contract => contract.is || []).flat())];
       iss.forEach(is => {
         if (TOKEN_STANDARDS.includes(is as TokenStandard)) {
@@ -244,6 +187,50 @@ const analyzeSolFilesByPath: AnalyzeSolFilesByPath = async ({
         }
       });
       // aggregatedInfo.versions[solInfo.solidity] = (aggregatedInfo.versions[solInfo.solidity] || 0) + 1;
+
+      if (
+        !aggregatedInfo.mostVulnerable.length ||
+        solInfo.issues.length > aggregatedInfo.mostVulnerable[0].countIssues
+      ) {
+        const contractAddress = getContractAddress(solFilename);
+
+        const contractNormalTransactionsResponse = await getContractNormalTransactions(
+          network,
+          contractAddress,
+          {
+            sort: 'desc',
+            perPage: 1,
+          }
+        );
+        const lastContractNormalTransaction = contractNormalTransactionsResponse.result[0];
+        if (
+          lastContractNormalTransaction &&
+          getNormalTxTimestampDelta(lastContractNormalTransaction) <= 86400
+        ) {
+          let contractWeiBalance = '';
+          try {
+            const contractBalanceResponse = await getContractBalance(network, [contractAddress]);
+            if (contractBalanceResponse.status === '1') {
+              contractWeiBalance = contractBalanceResponse.result[0].balance;
+            } else {
+              console.log(contractBalanceResponse);
+            }
+          } catch (e) {
+            console.error(e);
+          }
+
+          aggregatedInfo.mostVulnerable.unshift({
+            address: contractAddress,
+            name: getContractName(solFilename),
+            countIssues: solInfo.issues.length,
+            balance: `${fromWei(contractWeiBalance, 'ether')} ETH`,
+          });
+
+          if (aggregatedInfo.mostVulnerable.length > 10) {
+            aggregatedInfo.mostVulnerable.pop();
+          }
+        }
+      }
     }
 
     if (verbose) {

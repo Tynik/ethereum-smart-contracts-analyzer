@@ -17,10 +17,6 @@ export type MostVulnerable = {
   address: string;
   countIssues: number;
   balance: string;
-  lastNormalTransaction?: {
-    hash: string;
-    when: string;
-  };
 };
 
 export type AggregatedInfo = {
@@ -89,16 +85,26 @@ export interface SolEntity {
   enums?: SolEnum[];
 }
 
+export type SolVariable = {
+  name: string;
+  private?: boolean;
+  internal?: boolean;
+  public?: boolean;
+};
+
 export interface SolContract extends SolEntity {
   is?: (string | TokenStandard)[];
   abstract?: boolean;
+  variables?: SolVariable[];
 }
 
 export interface SolInterface extends SolEntity {
   is?: (string | TokenStandard)[];
 }
 
-export interface SolLibrary extends SolEntity {}
+export interface SolLibrary extends SolEntity {
+  variables?: SolVariable[];
+}
 
 export type SolFileInfo = {
   versions: string[];

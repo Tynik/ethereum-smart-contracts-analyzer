@@ -42,17 +42,3 @@ export const addSolIssue = ({
 
 export const getNormalTxTimestampDelta = (normalTx: NormalTransaction) =>
   +(Date.now() / 1000).toFixed() - +normalTx.timeStamp;
-
-export const getNormalTxReadableTimestampDelta = (normalTx: NormalTransaction) => {
-  const timestampDelta = getNormalTxTimestampDelta(normalTx);
-  if (timestampDelta < 60) {
-    return `${timestampDelta} secs ago`;
-  }
-  if (timestampDelta < 3600) {
-    return `${timestampDelta / 60} mins ago`;
-  }
-  if (timestampDelta < 86400) {
-    return `${timestampDelta / 3600} hrs ago`;
-  }
-  return `${timestampDelta / 86400} days ago`;
-};

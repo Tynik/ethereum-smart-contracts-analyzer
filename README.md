@@ -21,24 +21,25 @@ That information is automatically updated every day at 3 PM or when commit is pu
 
 ```json
 {
-  "number": 189596,
+  "number": 189808,
+  "time": "1353 secs.",
   "versions": {},
   "tokenContracts": {
     "ERC721": {
-      "number": 18136,
-      "percent": "9.57 %"
+      "number": 18152,
+      "percent": "9.56 %"
     },
     "ERC20": {
-      "number": 31747,
+      "number": 31778,
       "percent": "16.74 %"
     },
-    "ERC721A": {
-      "number": 5817,
-      "percent": "3.07 %"
-    },
     "ERC1155": {
-      "number": 2028,
-      "percent": "1.07 %"
+      "number": 2037,
+      "percent": "1.08 %"
+    },
+    "ERC721A": {
+      "number": 5880,
+      "percent": "3.10 %"
     },
     "ERC777": {
       "number": 84,
@@ -47,12 +48,12 @@ That information is automatically updated every day at 3 PM or when commit is pu
   },
   "securityContracts": {
     "ReentrancyGuard": {
-      "number": 13193,
-      "percent": "6.96 %"
+      "number": 13232,
+      "percent": "6.97 %"
     },
     "Pausable": {
-      "number": 9413,
-      "percent": "4.97 %"
+      "number": 9419,
+      "percent": "4.96 %"
     },
     "PullPayment": {
       "number": 101,
@@ -61,11 +62,11 @@ That information is automatically updated every day at 3 PM or when commit is pu
   },
   "accessContracts": {
     "Ownable": {
-      "number": 79712,
-      "percent": "42.04 %"
+      "number": 79846,
+      "percent": "42.07 %"
     },
     "AccessControl": {
-      "number": 4766,
+      "number": 4771,
       "percent": "2.51 %"
     }
   },
@@ -74,72 +75,102 @@ That information is automatically updated every day at 3 PM or when commit is pu
       "address": "0x7Cb48E0826433b2D7A2a7F0e69a716D5Ca045229",
       "name": "Twap",
       "countIssues": 106,
-      "balance": "0",
-      "lastNormalTransaction": "0xb9f25433786fe83173faa310289cbbbbee453091e579f3f24c3a184465c30209"
+      "balance": "0 ETH",
+      "lastNormalTransaction": {
+        "hash": "0xe827ab1f191896fd3306f67699a6c90b11099860270bcba83c4d08aca9ff7ba7",
+        "when": "1.176111111111111 hrs ago"
+      }
+    },
+    {
+      "address": "0x6531f133e6deebe7f2dce5a0441aa7ef330b4e53",
+      "name": "ChronoBankAssetProxy",
+      "countIssues": 100,
+      "balance": "0 ETH",
+      "lastNormalTransaction": {
+        "hash": "0x3bcbf604df74243fc06d713c2c599c4fb330b0f1b542db2cc0c0e2ae13c9df89",
+        "when": "15.591944444444444 hrs ago"
+      }
     },
     {
       "address": "0x446C9033E7516D820cc9a2ce2d0B7328b579406F",
       "name": "HealthCareToken",
       "countIssues": 97,
-      "balance": "0",
-      "lastNormalTransaction": "0x5715fcee9e891ded8d0824833445409038558281341994cb044d12b74d98d0ec"
+      "balance": "0 ETH",
+      "lastNormalTransaction": {
+        "hash": "0x3d5da789d4e54516e88ac4ef4c68a89b1f7e37d2d108bb71a27f27c222e5ae79",
+        "when": "9.041666666666666 hrs ago"
+      }
     },
     {
       "address": "0x0abdace70d3790235af448c88547603b945604ea",
       "name": "District0xNetworkToken",
       "countIssues": 85,
-      "balance": "0",
-      "lastNormalTransaction": "0x7025c26a7f7f9737044c6eed6b4fa075110a1a8bf0468bd2fd21eddf8be412a2"
+      "balance": "0 ETH",
+      "lastNormalTransaction": {
+        "hash": "0xcc371df2c3e6e4492fba938526e04edaa179830085d8ec4eb5c342aa43fc4a00",
+        "when": "43.9 mins ago"
+      }
     },
     {
-      "address": "0x06c2AE330C57a6320b2de720971ebD09003C7a01",
-      "name": "UnipilotPassiveFactory",
-      "countIssues": 38,
-      "balance": "0",
-      "lastNormalTransaction": "0x24e73fbdebb408026a93394f58e309b43d7bfb8c2426543b593949dba0357cdf"
+      "address": "0x073e06e3a316c59c53b905bf2bf8112475ffca08",
+      "name": "ZoraNFTCreatorV1",
+      "countIssues": 49,
+      "balance": "0 ETH",
+      "lastNormalTransaction": {
+        "hash": "0xf126e3a639cb4c77a25e9737f1597626bf6a4c402793dc22638793cd342db9c9",
+        "when": "18.044166666666666 hrs ago"
+      }
     },
     {
-      "address": "0x062F38735AAC32320DB5e2DBBEb07968351D7C72",
-      "name": "WeightedPool",
-      "countIssues": 37,
-      "balance": "0",
-      "lastNormalTransaction": "0xe5828d32d71791c9e1a52c68914d0648945962e3a41b77eb62afd70e2f2ca7ef"
+      "address": "0x038957E11EE9A299E2F7c2e74adAF12b62c7CB1D",
+      "name": "UnipilotActiveVault",
+      "countIssues": 36,
+      "balance": "0 ETH",
+      "lastNormalTransaction": {
+        "hash": "0x28d58557299016730c2975e47b4c94d4a8498905d8f640abb6a1899d60e06fea",
+        "when": "4.532222222222222 hrs ago"
+      }
     },
     {
       "address": "0x026224a2940bfe258d0dbe947919b62fe321f042",
       "name": "LobstersNft",
       "countIssues": 34,
-      "balance": "0",
-      "lastNormalTransaction": "0x1af8ef40f587a56fec2193b74d3f9fbdd09bdf86361e6aa0d786bda50c87a7ea"
-    },
-    {
-      "address": "0x01234567bac6fF94d7E4f0EE23119CF848F93245",
-      "name": "EthBlocks",
-      "countIssues": 26,
-      "balance": "0",
-      "lastNormalTransaction": "0xa2ebf37e1a11b25a6ea241ab1b7998545d13ac64e6929058349a27fd6e0eced8"
+      "balance": "0 ETH",
+      "lastNormalTransaction": {
+        "hash": "0x34095d903d55b4579cbea2a2baa8002ae70886b349c04d92e494a6669e6859ef",
+        "when": "7.485 hrs ago"
+      }
     },
     {
       "address": "0x011C5C4E4A86FC95A7A6d5C49a69Cdf0CB1d0467",
       "name": "HKC",
       "countIssues": 25,
-      "balance": "0",
-      "lastNormalTransaction": "0x439dd77759cb8fa69b5fac0dd04df132e15d627401f828d5a556b8291e84cdc9"
+      "balance": "0 ETH",
+      "lastNormalTransaction": {
+        "hash": "0x264daa961f4be1fe6d55ded6e52eeb8591f52c24c9b06eba992dcbca4f8e666f",
+        "when": "37 mins ago"
+      }
     },
     {
-      "address": "0x00139FdD8f2Bb8b4376aab2435c44981EC34e7e0",
-      "name": "AdventurersOfEther",
-      "countIssues": 21,
-      "balance": "22800000000000000000",
-      "lastNormalTransaction": "0x7dbcd5c9e27adda4304727d0e5add3151ee107fa23128c679705472d01e3c78a"
+      "address": "0x00FA82eA9BE4E24ec6D7ED86ef93bfe85b9a3e68",
+      "name": "NervousNFT",
+      "countIssues": 20,
+      "balance": "0.001 ETH",
+      "lastNormalTransaction": {
+        "hash": "0x54f493d13f4e70661b93eacd979bc327f8913bf9fd13026feda0db68d05bbc7c",
+        "when": "9.565277777777778 hrs ago"
+      }
     },
     {
-      "address": "0x000000be320d58EAbB01D14B6755B0403a93Ab7d",
-      "name": "YuGiOhCard",
-      "countIssues": 17,
-      "balance": "0"
+      "address": "0x00808C4201db673c00950B291EcD23BB9C1C6B0F",
+      "name": "TurfShop",
+      "countIssues": 19,
+      "balance": "0 ETH",
+      "lastNormalTransaction": {
+        "hash": "0xfefddcd93511093f6f175ec8e6c82d85e6705c9e13319d63d9a86bd97bed8a05",
+        "when": "8.248333333333333 hrs ago"
+      }
     }
-  ],
-  "time": "1361 secs"
+  ]
 }
 ```

@@ -22,7 +22,7 @@ That information is automatically updated every day at 3 PM or when commit is pu
 ```json
 {
   "number": 190235,
-  "time": "1347 secs.",
+  "time": "1342 secs.",
   "versions": {},
   "tokenContracts": {
     "ERC20": {
@@ -108,6 +108,12 @@ That information is automatically updated every day at 3 PM or when commit is pu
       "balance": "0.64 ETH"
     },
     {
+      "address": "0x01234567bac6fF94d7E4f0EE23119CF848F93245",
+      "name": "EthBlocks",
+      "countIssues": 27,
+      "balance": "0 ETH"
+    },
+    {
       "address": "0x011C5C4E4A86FC95A7A6d5C49a69Cdf0CB1d0467",
       "name": "HKC",
       "countIssues": 26,
@@ -123,12 +129,6 @@ That information is automatically updated every day at 3 PM or when commit is pu
       "address": "0x000000059619cDDdC056910672AbC90887136a95",
       "name": "SeKira",
       "countIssues": 16,
-      "balance": "0 ETH"
-    },
-    {
-      "address": "0x00000000006cee72100d161c57ada5bb2be1ca79",
-      "name": "Seaport",
-      "countIssues": 2,
       "balance": "0 ETH"
     }
   ]

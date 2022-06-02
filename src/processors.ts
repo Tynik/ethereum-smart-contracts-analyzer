@@ -592,6 +592,9 @@ export const mappingProcessor: Processor<
   return ({ rowNumber, colNumber, word }) =>
     ({ libraryEntity, contractEntity, issues }) => {
       const entity = libraryEntity || contractEntity;
+      if (!entity) {
+        return;
+      }
 
       if (word === ';') {
         step = null;

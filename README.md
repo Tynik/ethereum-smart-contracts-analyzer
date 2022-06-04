@@ -21,25 +21,25 @@ That information is automatically updated every day at 3 PM or when commit is pu
 
 ```json
 {
-  "number": 190658,
-  "time": "1720 secs.",
+  "number": 191100,
+  "time": "1609 secs.",
   "versions": {},
   "tokenContracts": {
     "ERC20": {
-      "number": 32000,
-      "percent": "16.78 %"
+      "number": 32035,
+      "percent": "16.76 %"
     },
     "ERC721": {
-      "number": 18294,
+      "number": 18342,
       "percent": "9.60 %"
     },
     "ERC1155": {
-      "number": 2076,
+      "number": 2083,
       "percent": "1.09 %"
     },
     "ERC721A": {
-      "number": 6160,
-      "percent": "3.23 %"
+      "number": 6323,
+      "percent": "3.31 %"
     },
     "ERC777": {
       "number": 85,
@@ -48,11 +48,11 @@ That information is automatically updated every day at 3 PM or when commit is pu
   },
   "securityContracts": {
     "ReentrancyGuard": {
-      "number": 13496,
-      "percent": "7.08 %"
+      "number": 13598,
+      "percent": "7.12 %"
     },
     "Pausable": {
-      "number": 9501,
+      "number": 9521,
       "percent": "4.98 %"
     },
     "PullPayment": {
@@ -62,19 +62,31 @@ That information is automatically updated every day at 3 PM or when commit is pu
   },
   "accessContracts": {
     "Ownable": {
-      "number": 80525,
-      "percent": "42.24 %"
+      "number": 80819,
+      "percent": "42.29 %"
     },
     "AccessControl": {
-      "number": 4848,
+      "number": 4857,
       "percent": "2.54 %"
     }
   },
   "mostVulnerable": [
     {
-      "address": "0x23a1820a47BcD022E29f6058a5FD224242F50D1A",
-      "name": "OrionMigratorToAtomic",
-      "countIssues": 304,
+      "address": "0x92D6C1e31e14520e676a687F0a93788B716BEff5",
+      "name": "DydxToken",
+      "countIssues": 175,
+      "balance": "0 ETH"
+    },
+    {
+      "address": "0x32296969Ef14EB0c6d29669C550D4a0449130230",
+      "name": "MetaStablePool",
+      "countIssues": 119,
+      "balance": "0 ETH"
+    },
+    {
+      "address": "0x271682DEB8C4E0901D1a1550aD2e64D568E69909",
+      "name": "VRFCoordinatorV2",
+      "countIssues": 110,
       "balance": "0 ETH"
     },
     {
@@ -96,27 +108,21 @@ That information is automatically updated every day at 3 PM or when commit is pu
       "balance": "0.72 ETH"
     },
     {
-      "address": "0x01379a8C67466Af8cE0Cf1F99c3D8208b2A3af23",
-      "name": "TribesOfOgun",
-      "countIssues": 21,
+      "address": "0x008124D10026Ee9a5E7D985c0100bb6af1Fa8B92",
+      "name": "LOSTAirdropV2",
+      "countIssues": 31,
       "balance": "0 ETH"
     },
     {
-      "address": "0x00808C4201db673c00950B291EcD23BB9C1C6B0F",
-      "name": "TurfShop",
+      "address": "0x0021a48b90b89B6552D7C5A65f5063302c647375",
+      "name": "headAlpha",
       "countIssues": 20,
       "balance": "0 ETH"
     },
     {
-      "address": "0x00758fB0C83a68b6cE4FcF1D2665600F3f0E4570",
-      "name": "JuiceboxFrens",
-      "countIssues": 18,
-      "balance": "0 ETH"
-    },
-    {
-      "address": "0x0000000010C38b3D8B4D642D9D065FB69BC77bC7",
-      "name": "underground",
-      "countIssues": 17,
+      "address": "0x000000059619cDDdC056910672AbC90887136a95",
+      "name": "SeKira",
+      "countIssues": 16,
       "balance": "0 ETH"
     },
     {

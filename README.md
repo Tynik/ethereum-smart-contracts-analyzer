@@ -21,25 +21,25 @@ That information is automatically updated every day at 3 PM or when commit is pu
 
 ```json
 {
-  "number": 191100,
-  "time": "1609 secs.",
+  "number": 191484,
+  "time": "1348 secs.",
   "versions": {},
   "tokenContracts": {
     "ERC20": {
-      "number": 32035,
-      "percent": "16.76 %"
+      "number": 32068,
+      "percent": "16.75 %"
     },
     "ERC721": {
-      "number": 18342,
+      "number": 18385,
       "percent": "9.60 %"
     },
     "ERC1155": {
-      "number": 2083,
-      "percent": "1.09 %"
+      "number": 2097,
+      "percent": "1.10 %"
     },
     "ERC721A": {
-      "number": 6323,
-      "percent": "3.31 %"
+      "number": 6473,
+      "percent": "3.38 %"
     },
     "ERC777": {
       "number": 85,
@@ -48,11 +48,11 @@ That information is automatically updated every day at 3 PM or when commit is pu
   },
   "securityContracts": {
     "ReentrancyGuard": {
-      "number": 13598,
-      "percent": "7.12 %"
+      "number": 13708,
+      "percent": "7.16 %"
     },
     "Pausable": {
-      "number": 9521,
+      "number": 9536,
       "percent": "4.98 %"
     },
     "PullPayment": {
@@ -62,11 +62,11 @@ That information is automatically updated every day at 3 PM or when commit is pu
   },
   "accessContracts": {
     "Ownable": {
-      "number": 80819,
-      "percent": "42.29 %"
+      "number": 81105,
+      "percent": "42.36 %"
     },
     "AccessControl": {
-      "number": 4857,
+      "number": 4869,
       "percent": "2.54 %"
     }
   },
@@ -102,33 +102,33 @@ That information is automatically updated every day at 3 PM or when commit is pu
       "balance": "0 ETH"
     },
     {
-      "address": "0x01471D5D0F8603E71D4579dA62e1D62cD748CBf7",
-      "name": "SBII721A",
-      "countIssues": 45,
-      "balance": "0.72 ETH"
-    },
-    {
-      "address": "0x008124D10026Ee9a5E7D985c0100bb6af1Fa8B92",
-      "name": "LOSTAirdropV2",
-      "countIssues": 31,
+      "address": "0x026224a2940bfe258d0dbe947919b62fe321f042",
+      "name": "LobstersNft",
+      "countIssues": 36,
       "balance": "0 ETH"
     },
     {
-      "address": "0x0021a48b90b89B6552D7C5A65f5063302c647375",
-      "name": "headAlpha",
-      "countIssues": 20,
+      "address": "0x01E8efB0429f102Ea104681849265459532231aB",
+      "name": "Clans",
+      "countIssues": 29,
       "balance": "0 ETH"
     },
     {
-      "address": "0x000000059619cDDdC056910672AbC90887136a95",
-      "name": "SeKira",
-      "countIssues": 16,
+      "address": "0x01Ba93514e5Eb642Ec63E95EF7787b0eDd403ADd",
+      "name": "AOKI",
+      "countIssues": 27,
       "balance": "0 ETH"
     },
     {
-      "address": "0x000000000000d0151e748d25b766e77efe2a6c83",
-      "name": "XDEX",
-      "countIssues": 5,
+      "address": "0x0151f9726D0C056B8c29311029cC43BEc291820c",
+      "name": "MonsterChampionsGenesis",
+      "countIssues": 24,
+      "balance": "0 ETH"
+    },
+    {
+      "address": "0x00e699bb8D011585E6429fC2F2550743a38d7F8F",
+      "name": "CryptoPuppets",
+      "countIssues": 21,
       "balance": "0 ETH"
     }
   ]

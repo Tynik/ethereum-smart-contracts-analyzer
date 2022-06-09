@@ -21,25 +21,25 @@ That information is automatically updated every day at 3 PM or when commit is pu
 
 ```json
 {
-  "number": 192764,
-  "time": "1639 secs.",
+  "number": 193241,
+  "time": "1487 secs.",
   "versions": {},
   "tokenContracts": {
     "ERC20": {
-      "number": 32213,
-      "percent": "16.71 %"
+      "number": 32264,
+      "percent": "16.70 %"
     },
     "ERC721": {
-      "number": 18510,
-      "percent": "9.60 %"
+      "number": 18564,
+      "percent": "9.61 %"
     },
     "ERC1155": {
-      "number": 2122,
-      "percent": "1.10 %"
+      "number": 2138,
+      "percent": "1.11 %"
     },
     "ERC721A": {
-      "number": 6885,
-      "percent": "3.57 %"
+      "number": 7044,
+      "percent": "3.65 %"
     },
     "ERC777": {
       "number": 85,
@@ -48,11 +48,11 @@ That information is automatically updated every day at 3 PM or when commit is pu
   },
   "securityContracts": {
     "ReentrancyGuard": {
-      "number": 13962,
-      "percent": "7.24 %"
+      "number": 14058,
+      "percent": "7.28 %"
     },
     "Pausable": {
-      "number": 9586,
+      "number": 9603,
       "percent": "4.97 %"
     },
     "PullPayment": {
@@ -62,19 +62,31 @@ That information is automatically updated every day at 3 PM or when commit is pu
   },
   "accessContracts": {
     "Ownable": {
-      "number": 81959,
-      "percent": "42.52 %"
+      "number": 82307,
+      "percent": "42.59 %"
     },
     "AccessControl": {
-      "number": 4912,
+      "number": 4923,
       "percent": "2.55 %"
     }
   },
   "mostVulnerable": [
     {
-      "address": "0x23a1820a47BcD022E29f6058a5FD224242F50D1A",
-      "name": "OrionMigratorToAtomic",
-      "countIssues": 304,
+      "address": "0x92D6C1e31e14520e676a687F0a93788B716BEff5",
+      "name": "DydxToken",
+      "countIssues": 175,
+      "balance": "0 ETH"
+    },
+    {
+      "address": "0x32296969Ef14EB0c6d29669C550D4a0449130230",
+      "name": "MetaStablePool",
+      "countIssues": 119,
+      "balance": "0 ETH"
+    },
+    {
+      "address": "0x1e19cf2d73a72ef1332c882f20534b6519be0276",
+      "name": "MetaStablePool",
+      "countIssues": 114,
       "balance": "0 ETH"
     },
     {
@@ -90,9 +102,9 @@ That information is automatically updated every day at 3 PM or when commit is pu
       "balance": "0 ETH"
     },
     {
-      "address": "0x0574c34385b039c2bb8db898f61b7767024a9449",
-      "name": "JOYtoys",
-      "countIssues": 38,
+      "address": "0x06df3b2bbb68adc8b0e302443692037ed9f91b42",
+      "name": "StablePool",
+      "countIssues": 37,
       "balance": "0 ETH"
     },
     {
@@ -102,33 +114,21 @@ That information is automatically updated every day at 3 PM or when commit is pu
       "balance": "0 ETH"
     },
     {
-      "address": "0x00065b639A3Fcc65db399a8CeF8c33327CcfE158",
-      "name": "TypeCVaultFactory",
-      "countIssues": 24,
+      "address": "0x01E8efB0429f102Ea104681849265459532231aB",
+      "name": "Clans",
+      "countIssues": 29,
       "balance": "0 ETH"
     },
     {
-      "address": "0x0000000010C38b3D8B4D642D9D065FB69BC77bC7",
-      "name": "underground",
-      "countIssues": 17,
+      "address": "0x01234567bac6fF94d7E4f0EE23119CF848F93245",
+      "name": "EthBlocks",
+      "countIssues": 27,
       "balance": "0 ETH"
     },
     {
-      "address": "0x0000000000f0021d219C5AE2Fd5b261966012Dd7",
-      "name": "VolatilityOracle",
-      "countIssues": 15,
-      "balance": "0 ETH"
-    },
-    {
-      "address": "0x00000000006cee72100d161c57ada5bb2be1ca79",
-      "name": "Seaport",
-      "countIssues": 2,
-      "balance": "0 ETH"
-    },
-    {
-      "address": "0x0000000000085d4780B73119b644AE5ecd22b376",
-      "name": "OwnedUpgradeabilityProxy",
-      "countIssues": 1,
+      "address": "0x00d1f83Ac925dD533aDF791D08f92C6ACA74BD91",
+      "name": "LifePlanetNFT",
+      "countIssues": 23,
       "balance": "0 ETH"
     }
   ]

@@ -21,25 +21,25 @@ That information is automatically updated every day at 3 PM or when commit is pu
 
 ```json
 {
-  "number": 193772,
-  "time": "1069 secs.",
+  "number": 194203,
+  "time": "1611 secs.",
   "versions": {},
   "tokenContracts": {
     "ERC20": {
-      "number": 32328,
-      "percent": "16.68 %"
+      "number": 32365,
+      "percent": "16.67 %"
     },
     "ERC721": {
-      "number": 18611,
-      "percent": "9.61 %"
+      "number": 18646,
+      "percent": "9.60 %"
     },
     "ERC1155": {
-      "number": 2146,
+      "number": 2157,
       "percent": "1.11 %"
     },
     "ERC721A": {
-      "number": 7237,
-      "percent": "3.73 %"
+      "number": 7401,
+      "percent": "3.81 %"
     },
     "ERC777": {
       "number": 85,
@@ -48,25 +48,25 @@ That information is automatically updated every day at 3 PM or when commit is pu
   },
   "securityContracts": {
     "ReentrancyGuard": {
-      "number": 14187,
-      "percent": "7.32 %"
+      "number": 14305,
+      "percent": "7.37 %"
     },
     "Pausable": {
-      "number": 9625,
-      "percent": "4.97 %"
+      "number": 9640,
+      "percent": "4.96 %"
     },
     "PullPayment": {
-      "number": 104,
+      "number": 105,
       "percent": "0.05 %"
     }
   },
   "accessContracts": {
     "Ownable": {
-      "number": 82664,
-      "percent": "42.66 %"
+      "number": 82959,
+      "percent": "42.72 %"
     },
     "AccessControl": {
-      "number": 4944,
+      "number": 4949,
       "percent": "2.55 %"
     }
   },
@@ -114,21 +114,21 @@ That information is automatically updated every day at 3 PM or when commit is pu
       "balance": "0 ETH"
     },
     {
-      "address": "0x00065b639A3Fcc65db399a8CeF8c33327CcfE158",
-      "name": "TypeCVaultFactory",
+      "address": "0x01Ba93514e5Eb642Ec63E95EF7787b0eDd403ADd",
+      "name": "AOKI",
+      "countIssues": 27,
+      "balance": "0 ETH"
+    },
+    {
+      "address": "0x0151f9726D0C056B8c29311029cC43BEc291820c",
+      "name": "MonsterChampionsGenesis",
       "countIssues": 24,
       "balance": "0 ETH"
     },
     {
-      "address": "0x000000059619cDDdC056910672AbC90887136a95",
-      "name": "SeKira",
-      "countIssues": 16,
-      "balance": "0 ETH"
-    },
-    {
-      "address": "0x0000000000f0021d219C5AE2Fd5b261966012Dd7",
-      "name": "VolatilityOracle",
-      "countIssues": 15,
+      "address": "0x00d1f83Ac925dD533aDF791D08f92C6ACA74BD91",
+      "name": "LifePlanetNFT",
+      "countIssues": 23,
       "balance": "0 ETH"
     }
   ]

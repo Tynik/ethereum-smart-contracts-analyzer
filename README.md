@@ -21,25 +21,25 @@ That information is automatically updated every day at 3 PM or when commit is pu
 
 ```json
 {
-  "number": 195041,
-  "time": "1350 secs.",
+  "number": 195698,
+  "time": "1023 secs.",
   "versions": {},
   "tokenContracts": {
     "ERC20": {
-      "number": 32534,
-      "percent": "16.68 %"
+      "number": 32604,
+      "percent": "16.66 %"
     },
     "ERC721": {
-      "number": 18724,
-      "percent": "9.60 %"
+      "number": 18804,
+      "percent": "9.61 %"
     },
     "ERC1155": {
-      "number": 2170,
-      "percent": "1.11 %"
+      "number": 2182,
+      "percent": "1.12 %"
     },
     "ERC721A": {
-      "number": 7671,
-      "percent": "3.93 %"
+      "number": 7815,
+      "percent": "3.99 %"
     },
     "ERC777": {
       "number": 85,
@@ -48,26 +48,26 @@ That information is automatically updated every day at 3 PM or when commit is pu
   },
   "securityContracts": {
     "ReentrancyGuard": {
-      "number": 14503,
-      "percent": "7.44 %"
+      "number": 14623,
+      "percent": "7.47 %"
     },
     "Pausable": {
-      "number": 9669,
-      "percent": "4.96 %"
+      "number": 9696,
+      "percent": "4.95 %"
     },
     "PullPayment": {
-      "number": 106,
+      "number": 108,
       "percent": "0.06 %"
     }
   },
   "accessContracts": {
     "Ownable": {
-      "number": 83461,
-      "percent": "42.79 %"
+      "number": 83819,
+      "percent": "42.83 %"
     },
     "AccessControl": {
-      "number": 4959,
-      "percent": "2.54 %"
+      "number": 4989,
+      "percent": "2.55 %"
     }
   },
   "mostVulnerable": [
@@ -84,9 +84,9 @@ That information is automatically updated every day at 3 PM or when commit is pu
       "balance": "0 ETH"
     },
     {
-      "address": "0x1e19cf2d73a72ef1332c882f20534b6519be0276",
-      "name": "MetaStablePool",
-      "countIssues": 114,
+      "address": "0x271682DEB8C4E0901D1a1550aD2e64D568E69909",
+      "name": "VRFCoordinatorV2",
+      "countIssues": 110,
       "balance": "0 ETH"
     },
     {
@@ -102,34 +102,16 @@ That information is automatically updated every day at 3 PM or when commit is pu
       "balance": "0 ETH"
     },
     {
-      "address": "0x0574c34385b039c2bb8db898f61b7767024a9449",
-      "name": "JOYtoys",
-      "countIssues": 38,
+      "address": "0x00000000006c3852cbef3e08e8df289169ede581",
+      "name": "Seaport",
+      "countIssues": 49,
       "balance": "0 ETH"
     },
     {
-      "address": "0x026224a2940bfe258d0dbe947919b62fe321f042",
-      "name": "LobstersNft",
-      "countIssues": 36,
+      "address": "0x0000000000085d4780B73119b644AE5ecd22b376",
+      "name": "OwnedUpgradeabilityProxy",
+      "countIssues": 1,
       "balance": "0 ETH"
-    },
-    {
-      "address": "0x01E8efB0429f102Ea104681849265459532231aB",
-      "name": "Clans",
-      "countIssues": 29,
-      "balance": "0 ETH"
-    },
-    {
-      "address": "0x0100546F2cD4C9D97f798fFC9755E47865FF7Ee6",
-      "name": "AlEth",
-      "countIssues": 21,
-      "balance": "0 ETH"
-    },
-    {
-      "address": "0x00FA82eA9BE4E24ec6D7ED86ef93bfe85b9a3e68",
-      "name": "NervousNFT",
-      "countIssues": 20,
-      "balance": "0.001 ETH"
     }
   ]
 }

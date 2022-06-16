@@ -21,25 +21,25 @@ That information is automatically updated every day at 3 PM or when commit is pu
 
 ```json
 {
-  "number": 195698,
-  "time": "1023 secs.",
+  "number": 196042,
+  "time": "1303 secs.",
   "versions": {},
   "tokenContracts": {
     "ERC20": {
-      "number": 32604,
-      "percent": "16.66 %"
+      "number": 32641,
+      "percent": "16.65 %"
     },
     "ERC721": {
-      "number": 18804,
+      "number": 18843,
       "percent": "9.61 %"
     },
     "ERC1155": {
-      "number": 2182,
+      "number": 2190,
       "percent": "1.12 %"
     },
     "ERC721A": {
-      "number": 7815,
-      "percent": "3.99 %"
+      "number": 7900,
+      "percent": "4.03 %"
     },
     "ERC777": {
       "number": 85,
@@ -48,11 +48,11 @@ That information is automatically updated every day at 3 PM or when commit is pu
   },
   "securityContracts": {
     "ReentrancyGuard": {
-      "number": 14623,
-      "percent": "7.47 %"
+      "number": 14692,
+      "percent": "7.49 %"
     },
     "Pausable": {
-      "number": 9696,
+      "number": 9713,
       "percent": "4.95 %"
     },
     "PullPayment": {
@@ -62,11 +62,11 @@ That information is automatically updated every day at 3 PM or when commit is pu
   },
   "accessContracts": {
     "Ownable": {
-      "number": 83819,
-      "percent": "42.83 %"
+      "number": 84008,
+      "percent": "42.85 %"
     },
     "AccessControl": {
-      "number": 4989,
+      "number": 5000,
       "percent": "2.55 %"
     }
   },
@@ -75,12 +75,6 @@ That information is automatically updated every day at 3 PM or when commit is pu
       "address": "0x92D6C1e31e14520e676a687F0a93788B716BEff5",
       "name": "DydxToken",
       "countIssues": 175,
-      "balance": "0 ETH"
-    },
-    {
-      "address": "0x32296969Ef14EB0c6d29669C550D4a0449130230",
-      "name": "MetaStablePool",
-      "countIssues": 119,
       "balance": "0 ETH"
     },
     {
@@ -108,8 +102,8 @@ That information is automatically updated every day at 3 PM or when commit is pu
       "balance": "0 ETH"
     },
     {
-      "address": "0x0000000000085d4780B73119b644AE5ecd22b376",
-      "name": "OwnedUpgradeabilityProxy",
+      "address": "0x00000000000045166c45af0fc6e4cf31d9e14b9a",
+      "name": "BID",
       "countIssues": 1,
       "balance": "0 ETH"
     }

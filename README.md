@@ -21,25 +21,25 @@ That information is automatically updated every day at 3 PM or when commit is pu
 
 ```json
 {
-  "number": 196428,
-  "time": "1659 secs.",
+  "number": 196811,
+  "time": "1381 secs.",
   "versions": {},
   "tokenContracts": {
     "ERC20": {
-      "number": 32685,
+      "number": 32750,
       "percent": "16.64 %"
     },
     "ERC721": {
-      "number": 18886,
+      "number": 18925,
       "percent": "9.62 %"
     },
     "ERC1155": {
-      "number": 2198,
+      "number": 2206,
       "percent": "1.12 %"
     },
     "ERC721A": {
-      "number": 7985,
-      "percent": "4.07 %"
+      "number": 8062,
+      "percent": "4.10 %"
     },
     "ERC777": {
       "number": 85,
@@ -48,12 +48,12 @@ That information is automatically updated every day at 3 PM or when commit is pu
   },
   "securityContracts": {
     "ReentrancyGuard": {
-      "number": 14752,
-      "percent": "7.51 %"
+      "number": 14813,
+      "percent": "7.53 %"
     },
     "Pausable": {
-      "number": 9740,
-      "percent": "4.96 %"
+      "number": 9751,
+      "percent": "4.95 %"
     },
     "PullPayment": {
       "number": 108,
@@ -62,11 +62,11 @@ That information is automatically updated every day at 3 PM or when commit is pu
   },
   "accessContracts": {
     "Ownable": {
-      "number": 84239,
-      "percent": "42.89 %"
+      "number": 84447,
+      "percent": "42.91 %"
     },
     "AccessControl": {
-      "number": 5016,
+      "number": 5028,
       "percent": "2.55 %"
     }
   },
@@ -75,12 +75,6 @@ That information is automatically updated every day at 3 PM or when commit is pu
       "address": "0x23a1820a47BcD022E29f6058a5FD224242F50D1A",
       "name": "OrionMigratorToAtomic",
       "countIssues": 304,
-      "balance": "0 ETH"
-    },
-    {
-      "address": "0x1F98431c8aD98523631AE4a59f267346ea31F984",
-      "name": "UniswapV3Factory",
-      "countIssues": 140,
       "balance": "0 ETH"
     },
     {

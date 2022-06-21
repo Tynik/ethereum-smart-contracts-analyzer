@@ -21,25 +21,25 @@ That information is automatically updated every day at 3 PM or when commit is pu
 
 ```json
 {
-  "number": 197458,
-  "time": "1524 secs.",
+  "number": 197948,
+  "time": "1281 secs.",
   "versions": {},
   "tokenContracts": {
     "ERC20": {
-      "number": 32830,
-      "percent": "16.63 %"
+      "number": 32881,
+      "percent": "16.61 %"
     },
     "ERC721": {
-      "number": 19001,
-      "percent": "9.62 %"
+      "number": 19066,
+      "percent": "9.63 %"
     },
     "ERC1155": {
-      "number": 2228,
-      "percent": "1.13 %"
+      "number": 2244,
+      "percent": "1.14 %"
     },
     "ERC721A": {
-      "number": 8201,
-      "percent": "4.15 %"
+      "number": 8313,
+      "percent": "4.20 %"
     },
     "ERC777": {
       "number": 85,
@@ -48,12 +48,12 @@ That information is automatically updated every day at 3 PM or when commit is pu
   },
   "securityContracts": {
     "ReentrancyGuard": {
-      "number": 14927,
-      "percent": "7.56 %"
+      "number": 15022,
+      "percent": "7.59 %"
     },
     "Pausable": {
-      "number": 9773,
-      "percent": "4.95 %"
+      "number": 9808,
+      "percent": "4.96 %"
     },
     "PullPayment": {
       "number": 109,
@@ -62,25 +62,25 @@ That information is automatically updated every day at 3 PM or when commit is pu
   },
   "accessContracts": {
     "Ownable": {
-      "number": 84826,
-      "percent": "42.96 %"
+      "number": 85126,
+      "percent": "43.01 %"
     },
     "AccessControl": {
-      "number": 5045,
+      "number": 5063,
       "percent": "2.56 %"
     }
   },
   "mostVulnerable": [
     {
-      "address": "0x2C67B0C0493e358cF368073bc0B5fA6F01E981e0",
-      "name": "Router",
-      "countIssues": 500,
+      "address": "0x50C7a557d408a5f5a7FDBE1091831728Ae7Eba45",
+      "name": "Pool",
+      "countIssues": 658,
       "balance": "0 ETH"
     },
     {
-      "address": "0x1d1a531CBcb969040Da7527bf1092DfC4FF7DD46",
-      "name": "BatchAction",
-      "countIssues": 499,
+      "address": "0x1F98431c8aD98523631AE4a59f267346ea31F984",
+      "name": "UniswapV3Factory",
+      "countIssues": 140,
       "balance": "0 ETH"
     },
     {
@@ -99,12 +99,6 @@ That information is automatically updated every day at 3 PM or when commit is pu
       "address": "0x00000000006c3852cbef3e08e8df289169ede581",
       "name": "Seaport",
       "countIssues": 49,
-      "balance": "0 ETH"
-    },
-    {
-      "address": "0x000000000000d0151e748d25b766e77efe2a6c83",
-      "name": "XDEX",
-      "countIssues": 5,
       "balance": "0 ETH"
     },
     {

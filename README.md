@@ -21,38 +21,38 @@ That information is automatically updated every day at 3 PM or when commit is pu
 
 ```json
 {
-  "number": 197948,
-  "time": "1281 secs.",
+  "number": 198388,
+  "time": "1019 secs.",
   "versions": {},
   "tokenContracts": {
     "ERC20": {
-      "number": 32881,
-      "percent": "16.61 %"
+      "number": 32932,
+      "percent": "16.60 %"
     },
     "ERC721": {
-      "number": 19066,
-      "percent": "9.63 %"
+      "number": 19115,
+      "percent": "9.64 %"
     },
     "ERC1155": {
-      "number": 2244,
+      "number": 2256,
       "percent": "1.14 %"
     },
     "ERC721A": {
-      "number": 8313,
-      "percent": "4.20 %"
+      "number": 8416,
+      "percent": "4.24 %"
     },
     "ERC777": {
-      "number": 85,
+      "number": 86,
       "percent": "0.04 %"
     }
   },
   "securityContracts": {
     "ReentrancyGuard": {
-      "number": 15022,
-      "percent": "7.59 %"
+      "number": 15114,
+      "percent": "7.62 %"
     },
     "Pausable": {
-      "number": 9808,
+      "number": 9833,
       "percent": "4.96 %"
     },
     "PullPayment": {
@@ -62,25 +62,31 @@ That information is automatically updated every day at 3 PM or when commit is pu
   },
   "accessContracts": {
     "Ownable": {
-      "number": 85126,
-      "percent": "43.01 %"
+      "number": 85391,
+      "percent": "43.04 %"
     },
     "AccessControl": {
-      "number": 5063,
+      "number": 5081,
       "percent": "2.56 %"
     }
   },
   "mostVulnerable": [
     {
-      "address": "0x50C7a557d408a5f5a7FDBE1091831728Ae7Eba45",
-      "name": "Pool",
-      "countIssues": 658,
+      "address": "0x92D6C1e31e14520e676a687F0a93788B716BEff5",
+      "name": "DydxToken",
+      "countIssues": 175,
       "balance": "0 ETH"
     },
     {
-      "address": "0x1F98431c8aD98523631AE4a59f267346ea31F984",
-      "name": "UniswapV3Factory",
-      "countIssues": 140,
+      "address": "0x32296969Ef14EB0c6d29669C550D4a0449130230",
+      "name": "MetaStablePool",
+      "countIssues": 119,
+      "balance": "0 ETH"
+    },
+    {
+      "address": "0x271682DEB8C4E0901D1a1550aD2e64D568E69909",
+      "name": "VRFCoordinatorV2",
+      "countIssues": 110,
       "balance": "0 ETH"
     },
     {

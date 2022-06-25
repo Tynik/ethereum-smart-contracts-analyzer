@@ -21,25 +21,25 @@ That information is automatically updated every day at 3 PM or when commit is pu
 
 ```json
 {
-  "number": 199124,
-  "time": "1485 secs.",
+  "number": 199485,
+  "time": "1578 secs.",
   "versions": {},
   "tokenContracts": {
     "ERC20": {
-      "number": 33026,
-      "percent": "16.59 %"
+      "number": 33081,
+      "percent": "16.58 %"
     },
     "ERC721": {
-      "number": 19206,
+      "number": 19252,
       "percent": "9.65 %"
     },
     "ERC1155": {
-      "number": 2269,
+      "number": 2275,
       "percent": "1.14 %"
     },
     "ERC721A": {
-      "number": 8591,
-      "percent": "4.31 %"
+      "number": 8661,
+      "percent": "4.34 %"
     },
     "ERC777": {
       "number": 86,
@@ -48,11 +48,11 @@ That information is automatically updated every day at 3 PM or when commit is pu
   },
   "securityContracts": {
     "ReentrancyGuard": {
-      "number": 15261,
-      "percent": "7.66 %"
+      "number": 15318,
+      "percent": "7.68 %"
     },
     "Pausable": {
-      "number": 9875,
+      "number": 9899,
       "percent": "4.96 %"
     },
     "PullPayment": {
@@ -62,11 +62,11 @@ That information is automatically updated every day at 3 PM or when commit is pu
   },
   "accessContracts": {
     "Ownable": {
-      "number": 85849,
-      "percent": "43.11 %"
+      "number": 86063,
+      "percent": "43.14 %"
     },
     "AccessControl": {
-      "number": 5139,
+      "number": 5150,
       "percent": "2.58 %"
     }
   },
@@ -75,12 +75,6 @@ That information is automatically updated every day at 3 PM or when commit is pu
       "address": "0x92D6C1e31e14520e676a687F0a93788B716BEff5",
       "name": "DydxToken",
       "countIssues": 175,
-      "balance": "0 ETH"
-    },
-    {
-      "address": "0x7637Aaeb5BD58269B782726680d83f72C651aE74",
-      "name": "UniswapV3StaticQuoter",
-      "countIssues": 122,
       "balance": "0 ETH"
     },
     {

@@ -21,25 +21,25 @@ That information is automatically updated every day at 3 PM or when commit is pu
 
 ```json
 {
-  "number": 199753,
-  "time": "1358 secs.",
+  "number": 200043,
+  "time": "1052 secs.",
   "versions": {},
   "tokenContracts": {
     "ERC20": {
-      "number": 33130,
-      "percent": "16.59 %"
+      "number": 33162,
+      "percent": "16.58 %"
     },
     "ERC721": {
-      "number": 19299,
+      "number": 19321,
       "percent": "9.66 %"
     },
     "ERC1155": {
-      "number": 2281,
-      "percent": "1.14 %"
+      "number": 2287,
+      "percent": "1.15 %"
     },
     "ERC721A": {
-      "number": 8735,
-      "percent": "4.37 %"
+      "number": 8823,
+      "percent": "4.41 %"
     },
     "ERC777": {
       "number": 86,
@@ -48,11 +48,11 @@ That information is automatically updated every day at 3 PM or when commit is pu
   },
   "securityContracts": {
     "ReentrancyGuard": {
-      "number": 15370,
-      "percent": "7.69 %"
+      "number": 15430,
+      "percent": "7.71 %"
     },
     "Pausable": {
-      "number": 9914,
+      "number": 9925,
       "percent": "4.96 %"
     },
     "PullPayment": {
@@ -62,31 +62,19 @@ That information is automatically updated every day at 3 PM or when commit is pu
   },
   "accessContracts": {
     "Ownable": {
-      "number": 86249,
-      "percent": "43.18 %"
+      "number": 86467,
+      "percent": "43.23 %"
     },
     "AccessControl": {
-      "number": 5155,
+      "number": 5159,
       "percent": "2.58 %"
     }
   },
   "mostVulnerable": [
     {
-      "address": "0x92D6C1e31e14520e676a687F0a93788B716BEff5",
-      "name": "DydxToken",
-      "countIssues": 175,
-      "balance": "0 ETH"
-    },
-    {
-      "address": "0x32296969Ef14EB0c6d29669C550D4a0449130230",
-      "name": "MetaStablePool",
-      "countIssues": 119,
-      "balance": "0 ETH"
-    },
-    {
-      "address": "0x271682DEB8C4E0901D1a1550aD2e64D568E69909",
-      "name": "VRFCoordinatorV2",
-      "countIssues": 110,
+      "address": "0x23a1820a47BcD022E29f6058a5FD224242F50D1A",
+      "name": "OrionMigratorToAtomic",
+      "countIssues": 304,
       "balance": "0 ETH"
     },
     {

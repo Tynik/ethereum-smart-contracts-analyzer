@@ -21,25 +21,25 @@ That information is automatically updated every day at 3 PM or when commit is pu
 
 ```json
 {
-  "number": 202389,
-  "time": "1496 secs.",
+  "number": 202691,
+  "time": "1656 secs.",
   "versions": {},
   "tokenContracts": {
     "ERC20": {
-      "number": 33465,
-      "percent": "16.54 %"
+      "number": 33493,
+      "percent": "16.52 %"
     },
     "ERC721": {
-      "number": 19555,
+      "number": 19580,
       "percent": "9.66 %"
     },
     "ERC1155": {
-      "number": 2332,
+      "number": 2334,
       "percent": "1.15 %"
     },
     "ERC721A": {
-      "number": 9357,
-      "percent": "4.62 %"
+      "number": 9427,
+      "percent": "4.65 %"
     },
     "ERC777": {
       "number": 87,
@@ -48,12 +48,12 @@ That information is automatically updated every day at 3 PM or when commit is pu
   },
   "securityContracts": {
     "ReentrancyGuard": {
-      "number": 15868,
-      "percent": "7.84 %"
+      "number": 15921,
+      "percent": "7.86 %"
     },
     "Pausable": {
-      "number": 10029,
-      "percent": "4.96 %"
+      "number": 10037,
+      "percent": "4.95 %"
     },
     "PullPayment": {
       "number": 109,
@@ -62,21 +62,15 @@ That information is automatically updated every day at 3 PM or when commit is pu
   },
   "accessContracts": {
     "Ownable": {
-      "number": 87936,
-      "percent": "43.45 %"
+      "number": 88143,
+      "percent": "43.49 %"
     },
     "AccessControl": {
-      "number": 5246,
+      "number": 5248,
       "percent": "2.59 %"
     }
   },
   "mostVulnerable": [
-    {
-      "address": "0xcE744a9BAf573167B2CF138114BA32ed7De274Fa",
-      "name": "InitializableImmutableAdminUpgradeabilityProxy",
-      "countIssues": 196,
-      "balance": "0 ETH"
-    },
     {
       "address": "0x92D6C1e31e14520e676a687F0a93788B716BEff5",
       "name": "DydxToken",
@@ -84,15 +78,9 @@ That information is automatically updated every day at 3 PM or when commit is pu
       "balance": "0 ETH"
     },
     {
-      "address": "0x32296969Ef14EB0c6d29669C550D4a0449130230",
-      "name": "MetaStablePool",
-      "countIssues": 119,
-      "balance": "0 ETH"
-    },
-    {
-      "address": "0x271682DEB8C4E0901D1a1550aD2e64D568E69909",
-      "name": "VRFCoordinatorV2",
-      "countIssues": 110,
+      "address": "0x1F98431c8aD98523631AE4a59f267346ea31F984",
+      "name": "UniswapV3Factory",
+      "countIssues": 140,
       "balance": "0 ETH"
     },
     {
@@ -108,9 +96,15 @@ That information is automatically updated every day at 3 PM or when commit is pu
       "balance": "0 ETH"
     },
     {
-      "address": "0x00000000000045166c45af0fc6e4cf31d9e14b9a",
-      "name": "BID",
-      "countIssues": 1,
+      "address": "0x000000000000d0151e748d25b766e77efe2a6c83",
+      "name": "XDEX",
+      "countIssues": 5,
+      "balance": "0 ETH"
+    },
+    {
+      "address": "0x000000000000cd17345801aa8147b8D3950260FF",
+      "name": "Poster",
+      "countIssues": 0,
       "balance": "0 ETH"
     }
   ]

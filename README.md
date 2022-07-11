@@ -21,25 +21,25 @@ That information is automatically updated every day at 3 PM or when commit is pu
 
 ```json
 {
-  "number": 205327,
-  "time": "1443 secs.",
+  "number": 205892,
+  "time": "1451 secs.",
   "versions": {},
   "tokenContracts": {
     "ERC20": {
-      "number": 33926,
-      "percent": "16.52 %"
+      "number": 33990,
+      "percent": "16.51 %"
     },
     "ERC721": {
-      "number": 19816,
+      "number": 19860,
       "percent": "9.65 %"
     },
     "ERC1155": {
-      "number": 2381,
+      "number": 2390,
       "percent": "1.16 %"
     },
     "ERC721A": {
-      "number": 9921,
-      "percent": "4.83 %"
+      "number": 10079,
+      "percent": "4.90 %"
     },
     "ERC777": {
       "number": 87,
@@ -48,11 +48,11 @@ That information is automatically updated every day at 3 PM or when commit is pu
   },
   "securityContracts": {
     "ReentrancyGuard": {
-      "number": 16270,
-      "percent": "7.92 %"
+      "number": 16390,
+      "percent": "7.96 %"
     },
     "Pausable": {
-      "number": 10127,
+      "number": 10143,
       "percent": "4.93 %"
     },
     "PullPayment": {
@@ -62,19 +62,31 @@ That information is automatically updated every day at 3 PM or when commit is pu
   },
   "accessContracts": {
     "Ownable": {
-      "number": 89952,
-      "percent": "43.81 %"
+      "number": 90350,
+      "percent": "43.88 %"
     },
     "AccessControl": {
-      "number": 5322,
+      "number": 5332,
       "percent": "2.59 %"
     }
   },
   "mostVulnerable": [
     {
-      "address": "0x23a1820a47BcD022E29f6058a5FD224242F50D1A",
-      "name": "OrionMigratorToAtomic",
-      "countIssues": 304,
+      "address": "0x92D6C1e31e14520e676a687F0a93788B716BEff5",
+      "name": "DydxToken",
+      "countIssues": 175,
+      "balance": "0 ETH"
+    },
+    {
+      "address": "0x37a0fcbf3e9f82c50fD589d9Ec3a7B98C045DfAe",
+      "name": "OptimismValidator",
+      "countIssues": 151,
+      "balance": "0 ETH"
+    },
+    {
+      "address": "0x1F98431c8aD98523631AE4a59f267346ea31F984",
+      "name": "UniswapV3Factory",
+      "countIssues": 140,
       "balance": "0 ETH"
     },
     {
@@ -90,9 +102,9 @@ That information is automatically updated every day at 3 PM or when commit is pu
       "balance": "0 ETH"
     },
     {
-      "address": "0x0000000000085d4780B73119b644AE5ecd22b376",
-      "name": "OwnedUpgradeabilityProxy",
-      "countIssues": 1,
+      "address": "0x000000000000d0151e748d25b766e77efe2a6c83",
+      "name": "XDEX",
+      "countIssues": 5,
       "balance": "0 ETH"
     }
   ]

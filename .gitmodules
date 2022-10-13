@@ -1,3 +1,3 @@
 [submodule "smart-contract-sanctuary-ethereum"]
 	path = smart-contract-sanctuary-ethereum
-	url = git@github.com:tintinweb/smart-contract-sanctuary-ethereum.git
+	url = https://github.com/tintinweb/smart-contract-sanctuary-ethereum.git

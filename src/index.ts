@@ -194,41 +194,45 @@ const analyzeSolFilesByPath: AnalyzeSolFilesByPath = async ({
       ) {
         const contractAddress = getContractAddress(solFilename);
 
-        const contractNormalTransactionsResponse = await getContractNormalTransactions(
-          network,
-          contractAddress,
-          {
-            sort: 'desc',
-            perPage: 1,
-          }
-        );
-        const lastContractNormalTransaction = contractNormalTransactionsResponse.result[0];
-        if (
-          lastContractNormalTransaction &&
-          getNormalTxTimestampDelta(lastContractNormalTransaction) <= 86400
-        ) {
-          let contractWeiBalance = '';
-          try {
-            const contractBalanceResponse = await getContractBalance(network, [contractAddress]);
-            if (contractBalanceResponse.status === '1') {
-              contractWeiBalance = contractBalanceResponse.result[0].balance;
-            } else {
-              console.log(contractBalanceResponse);
+        try {
+          const contractNormalTransactionsResponse = await getContractNormalTransactions(
+              network,
+              contractAddress,
+              {
+                sort: 'desc',
+                perPage: 1,
+              }
+          );
+          const lastContractNormalTransaction = contractNormalTransactionsResponse.result[0];
+          if (
+              lastContractNormalTransaction &&
+              getNormalTxTimestampDelta(lastContractNormalTransaction) <= 86400
+          ) {
+            let contractWeiBalance = '';
+            try {
+              const contractBalanceResponse = await getContractBalance(network, [contractAddress]);
+              if (contractBalanceResponse.status === '1') {
+                contractWeiBalance = contractBalanceResponse.result[0].balance;
+              } else {
+                console.log(contractBalanceResponse);
+              }
+            } catch (e) {
+              console.error(e);
             }
-          } catch (e) {
-            console.error(e);
-          }
 
-          aggregatedInfo.mostVulnerable.unshift({
-            address: contractAddress,
-            name: getContractName(solFilename),
-            countIssues: solInfo.issues.length,
-            balance: `${fromWei(contractWeiBalance, 'ether')} ETH`,
-          });
+            aggregatedInfo.mostVulnerable.unshift({
+              address: contractAddress,
+              name: getContractName(solFilename),
+              countIssues: solInfo.issues.length,
+              balance: `${fromWei(contractWeiBalance, 'ether')} ETH`,
+            });
 
-          if (aggregatedInfo.mostVulnerable.length > 10) {
-            aggregatedInfo.mostVulnerable.pop();
+            if (aggregatedInfo.mostVulnerable.length > 10) {
+              aggregatedInfo.mostVulnerable.pop();
+            }
           }
+        } catch (e) {
+          console.error(e);
         }
       }
     }

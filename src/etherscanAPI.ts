@@ -93,15 +93,13 @@ export const getContractNormalTransactions: GetContractNormalTransactions = asyn
   network,
   address,
   { startBlock, endBlock, sort, page, perPage }
-) => {
-  return sendEtherscanRequest(network, {
-    module: 'account',
-    action: 'txlist',
-    page: page || 1,
-    offset: perPage || 10,
-    sort: sort || 'asc',
-    startblock: startBlock || 0,
-    endblock: endBlock || 99999999,
-    address,
-  });
-};
+) => sendEtherscanRequest(network, {
+  module: 'account',
+  action: 'txlist',
+  page: page || 1,
+  offset: perPage || 10,
+  sort: sort || 'asc',
+  startblock: startBlock || 0,
+  endblock: endBlock || 99999999,
+  address,
+});

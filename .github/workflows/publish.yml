@@ -14,8 +14,6 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v3
-        with:
-          submodules: true
 
       - name: Setting git config
         run: |
@@ -24,7 +22,7 @@ jobs:
 
       - name: Pull the latest changes for smart-contract-sanctuary-ethereum
         run: |
-          git submodule update --remote --depth=1
+          git submodule update --init --remote --depth=1
           git commit smart-contract-sanctuary-ethereum -m "Updating smart-contract-sanctuary-ethereum to latest" || echo "No changes to commit"
           git push origin || echo "No changes to commit"
 
